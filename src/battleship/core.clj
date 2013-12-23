@@ -1,0 +1,24 @@
+(ns battleship.core)
+
+(def matrix-row 5)
+
+(defn compute-index "Computes a cell index based on a row and a column. "
+  [row col]
+  (+ col (* matrix-row row)))
+
+(defn get-cell
+  "Retrieves a cell from the battle field:[:a :b :c]"
+  [row col battle-field]
+  (battle-field (compute-index row col)))
+
+(defn random-bool "Generate a boolean based on the following frequency: 1/5 for a true and 4/5 for a false. "
+  []
+  (= (rand-int (+ matrix-row 1)) matrix-row))
+
+(defn init-cell "Initialize a cell"
+  []
+  {:has-enemy? (random-bool) :shot-by :none})
+
+(defn generate-battle-field "Generates a 5x5 matrix. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
+  []
+  (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
