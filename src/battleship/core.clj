@@ -22,3 +22,7 @@
 (defn generate-battle-field "Generates a 5x5 matrix. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
   []
   (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
+
+(defn found-enemy? "Predicate that tells if there is an enemy at a given location."
+  [row col battle-field]
+  (:has-enemy? (get-cell row col battle-field)))
