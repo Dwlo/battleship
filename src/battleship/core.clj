@@ -7,9 +7,9 @@
   (+ col (* matrix-row row)))
 
 (defn get-cell
-  "Retrieves a cell from the battle field:[:a :b :c]"
-  [row col battle-field]
-  (battle-field (compute-index row col)))
+  "Retrieves a cell from the battlefield: [:a :b :c]"
+  [row col battlefield]
+  (battlefield (compute-index row col)))
 
 (defn random-bool "Generate a boolean based on the following frequency: 1/5 for a true and 4/5 for a false. "
   []
@@ -19,10 +19,10 @@
   []
   {:has-enemy? (random-bool) :shot-by :none})
 
-(defn generate-battle-field "Generates a 5x5 matrix. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
+(defn generate-battlefield "Generates a 5x5 matrix. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
   []
   (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
 
 (defn found-enemy? "Predicate that tells if there is an enemy at a given location."
-  [row col battle-field]
-  (:has-enemy? (get-cell row col battle-field)))
+  [row col battlefield]
+  (:has-enemy? (get-cell row col battlefield)))
