@@ -11,7 +11,7 @@
   [row col battlefield]
   (battlefield (compute-index row col)))
 
-(defn random-bool "Generate a boolean based on the following frequency: 1/5 for a true and 4/5 for a false. "
+(defn random-bool "Generate a boolean based on the following frequency: 1/5 for a true and 4/5 for a false."
   []
   (= (rand-int (+ matrix-row 1)) matrix-row))
 
@@ -26,3 +26,7 @@
 (defn found-enemy? "Predicate that tells if there is an enemy at a given location."
   [row col battlefield]
   (:has-enemy? (get-cell row col battlefield)))
+
+(defn score "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
+  [battlefield]
+  (frequencies (for [cell battlefield :when (not= (:shot-by cell) :none)] (:shot-by cell))))
