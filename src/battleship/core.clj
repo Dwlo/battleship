@@ -30,3 +30,7 @@
 (defn score "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
   [battlefield]
   (frequencies (for [cell battlefield :when (not= (:shot-by cell) :none)] (:shot-by cell))))
+
+(defn is-game-over? "Checks whether of not not there is an enemy left."
+  [battlefield]
+  (not (true? (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))

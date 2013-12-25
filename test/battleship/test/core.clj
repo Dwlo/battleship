@@ -117,3 +117,30 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by :none}])]
         (is (= actual {}))))))
+
+
+(deftest test-is-game-over
+  (testing "The game is not over."
+    (let [actual (is-game-over? [{:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? true  :shot-by :none}])]
+      (is (= actual false))))
+
+  (testing "The game is not over."
+    (let [actual (is-game-over? [{:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}])]
+      (is (= actual false))))
+
+  (testing "The game is over."
+    (let [actual (is-game-over? [{:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by "player-101"}
+                                 {:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? true  :shot-by "player-X"}])]
+      (is (= actual true))))
+  )
