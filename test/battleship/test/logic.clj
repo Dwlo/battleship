@@ -3,7 +3,7 @@
         battleship.logic))
 
 
-(deftest test-fire
+(deftest test-attempt-attack
   (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by :none}
@@ -31,13 +31,13 @@
                            {:has-enemy? true  :shot-by "player1"}
                            {:has-enemy? true  :shot-by :none}])]
     (testing "5x5 matrice: Fire on enemy located at row=0 col=0"
-      (let [actual (fire 0 0 "plx" battlefield)]
+      (let [actual (attempt-attack 0 0 "plx" battlefield)]
         (is (= actual :failure))))
 
     (testing "5x5 matrice: Fire on enemy located at row=0 col=1"
-      (let [actual (fire 0 1 "plx" battlefield)]
+      (let [actual (attempt-attack 0 1 "plx" battlefield)]
         (is (= actual :failure))))
 
     (testing "5x5 matrice: Fire on enemy located at row=0 col=2"
-      (let [actual (fire 0 2 "plx" battlefield)]
+      (let [actual (attempt-attack 0 2 "plx" battlefield)]
         (is (= actual :success))))))
