@@ -1,6 +1,8 @@
 (ns battleship.core)
 
+
 (def matrix-row 5)
+
 
 (defn compute-index "Computes a cell index based on a row and a column. "
   [row col]

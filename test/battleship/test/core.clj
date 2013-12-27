@@ -2,6 +2,7 @@
   (:use clojure.test
         battleship.core))
 
+
 (deftest test-compute-index
   (testing "5x5 matrice: element identified by row=0 and col=0"
     (let [actual (compute-index 0 0)]
