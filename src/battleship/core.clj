@@ -25,7 +25,8 @@
 
 (defn found-enemy? "Predicate that tells if there is an enemy at a given location."
   [row col battlefield]
-  (:has-enemy? (get-cell row col battlefield)))
+  (let [cell (get-cell row col battlefield)]
+    (and (:has-enemy? cell) (= :none (:shot-by cell)))))
 
 (defn score "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
   [battlefield]
@@ -35,6 +36,13 @@
   [battlefield]
   (not (true? (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))
 
-(defn shoot-enemy "Marks a cell as shot."
+(defn shoot-enemy "Marks a cell as shot with the name of the player."
   [row col player battlefield]
   (swap! battlefield update-in [(compute-index row col) :shot-by] (fn [x] player )))
+
+(defn fire "A player attempt to shoot an enemy. If an enemy is shot the fun returns :success otherwise :failure"
+  [row col player battlefield]
+  (if (found-enemy? row col @battlefield)
+    (do (shoot-enemy row col player battlefield)
+        :success)
+    :failure))
