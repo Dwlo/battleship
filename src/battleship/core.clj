@@ -23,7 +23,7 @@
   []
   (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
 
-(defn found-enemy? "Predicate that tells if there is an enemy at a given location."
+(defn found-active-enemy? "Predicate that tells if there is an active enemy at a given location."
   [row col battlefield]
   (let [cell (get-cell row col battlefield)]
     (and (:has-enemy? cell) (= :none (:shot-by cell)))))
@@ -42,7 +42,7 @@
 
 (defn fire "A player attempt to shoot an enemy. If an enemy is shot the fun returns :success otherwise :failure"
   [row col player battlefield]
-  (if (found-enemy? row col @battlefield)
+  (if (found-active-enemy? row col @battlefield)
     (do (shoot-enemy row col player battlefield)
         :success)
     :failure))
