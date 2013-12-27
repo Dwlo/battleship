@@ -34,3 +34,7 @@
 (defn is-game-over? "Checks whether of not not there is an enemy left."
   [battlefield]
   (not (true? (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))
+
+(defn shoot-enemy "Marks a cell as shot."
+  [row col player battlefield]
+  (swap! battlefield update-in [(compute-index row col) :shot-by] (fn [x] player )))

@@ -118,7 +118,6 @@
                            {:has-enemy? true  :shot-by :none}])]
         (is (= actual {}))))))
 
-
 (deftest test-is-game-over
   (testing "The game is not over."
     (let [actual (is-game-over? [{:has-enemy? true  :shot-by "player1"}
@@ -142,5 +141,35 @@
                                  {:has-enemy? true  :shot-by "player-101"}
                                  {:has-enemy? true  :shot-by "player1"}
                                  {:has-enemy? true  :shot-by "player-X"}])]
-      (is (= actual true))))
-  )
+      (is (= actual true)))))
+
+(deftest test-shoot-enemy
+  (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "player1"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "playerX"}
+                           {:has-enemy? true  :shot-by "playerX2"}
+                           {:has-enemy? true  :shot-by "playerX2"}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "player1"}
+                           {:has-enemy? true  :shot-by :none}])]
+    (testing "5x5 matrice: Shoot enemy in cell: row=2 col=1"
+      (let [actual (shoot-enemy 2 1 "plx" battlefield)]
+        (is (= (:shot-by (get-cell 2 1 actual)) "plx" ))))))
