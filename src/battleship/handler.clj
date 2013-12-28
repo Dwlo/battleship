@@ -11,7 +11,7 @@
 (defroutes app-routes
   (GET "/"  [] "<br/><h1>Battleship ... </h1> boom ! fire !")
 
-  (GET "/battleship/game/:game/player/:player/attack"
+  (PUT "/battleship/game/:game/player/:player/attack"
        {{row :row col :col player :player } :params}
        (response (logic/launch-attack
          (read-string row)
