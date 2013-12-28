@@ -1,13 +1,27 @@
 (ns battleship.handler
-  (:use compojure.core)
+  (:use compojure.core ring.middleware.json ring.util.response)
   (:require [compojure.handler :as handler]
-            [battleship.core :as logic]
-            [compojure.route :as route]))
+            [battleship.core   :as core ]
+            [battleship.logic  :as logic]
+            [compojure.route   :as route]))
+
+
+(def battlefield (atom (core/generate-battlefield)))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/"  [] "<br/><h1>Battleship ... </h1> boom ! fire !")
+
+  (GET "/battleship/game/:game/player/:player/attack"
+       {{row :row col :col player :player } :params}
+       (response (logic/launch-attack
+         (read-string row)
+         (read-string col)
+         player
+         battlefield)))
+
   (route/resources "/")
+
   (route/not-found "Not Found"))
 
 (def app
-  (handler/site app-routes))
+  (wrap-json-response (handler/site app-routes)))
