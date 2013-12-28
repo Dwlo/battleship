@@ -1,6 +1,7 @@
 (ns battleship.handler
   (:use compojure.core)
   (:require [compojure.handler :as handler]
+            [battleship.core :as logic]
             [compojure.route :as route]))
 
 (defroutes app-routes
