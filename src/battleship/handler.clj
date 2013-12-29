@@ -6,7 +6,7 @@
             [compojure.route   :as route]))
 
 
-(def battlefield (atom (core/generate-battlefield)))
+(def battlefields (atom {}))
 
 (defn generate-game-id "Generates an random game identifier."
   []
@@ -15,13 +15,19 @@
 (defroutes app-routes
   (GET "/" [] "<br/><h1>Battleship ... </h1> boom ! fire !")
 
-  (PUT "/battleship/games/:game/player/:player/attack"
-       {{row :row col :col player :player } :params}
+  (POST "/battleship/games" []
+        (let [game-id (generate-game-id)]
+          (do
+            (swap! battlefields assoc game-id (atom (core/generate-battlefield)))
+            (response {:game-id game-id}))))
+
+  (PUT "/battleship/games/:game-id/players/:player/attack"
+       {{row :row col :col player :player game-id :game-id} :params}
        (response (logic/launch-attack
                   (read-string row)
                   (read-string col)
                   player
-                  battlefield)))
+                  (@battlefields game-id))))
 
   (route/resources "/")
 
