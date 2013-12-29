@@ -8,16 +8,20 @@
 
 (def battlefield (atom (core/generate-battlefield)))
 
-(defroutes app-routes
-  (GET "/"  [] "<br/><h1>Battleship ... </h1> boom ! fire !")
+(defn generate-game-id "Generates an random game identifier."
+  []
+  (str (java.util.UUID/randomUUID)))
 
-  (PUT "/battleship/game/:game/player/:player/attack"
+(defroutes app-routes
+  (GET "/" [] "<br/><h1>Battleship ... </h1> boom ! fire !")
+
+  (PUT "/battleship/games/:game/player/:player/attack"
        {{row :row col :col player :player } :params}
        (response (logic/launch-attack
-         (read-string row)
-         (read-string col)
-         player
-         battlefield)))
+                  (read-string row)
+                  (read-string col)
+                  player
+                  battlefield)))
 
   (route/resources "/")
 

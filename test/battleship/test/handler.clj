@@ -12,3 +12,9 @@
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
       (is (= (:status response) 404)))))
+
+(deftest test-generate-game-id
+  (testing "Generates a random identifier."
+    (let [actual (generate-game-id)]
+      (is (not= actual nil))
+      (is (false? (.isEmpty actual))))))
