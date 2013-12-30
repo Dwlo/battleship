@@ -17,3 +17,10 @@
 (defn generate-game-id "Generates an random game identifier."
   []
   (str (java.util.UUID/randomUUID)))
+
+(defn show-context "Shows all game contexts.
+Ex: {game-id {player1 score1 player2 score2}}"
+  [battlefields]
+  (for [ctx (deref battlefields)
+        :let [game-id (key ctx) bf (val ctx) status {false :running  true :over}]]
+    {game-id (assoc (score bf) :status (status (is-game-over? bf)))}))
