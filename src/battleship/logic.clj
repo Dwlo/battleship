@@ -24,3 +24,11 @@ Ex: {game-id {player1 score1 player2 score2}}"
   (for [ctx @battlefields
         :let [game-id (key ctx) bf @(val ctx) status {false :running  true :over}]]
     {game-id (assoc (score bf) :status (status (is-game-over? bf)))}))
+
+
+(defn terminated-games "Returns all the games in a over state"
+  [battlefields]
+  (for [ctx @battlefields
+        :let [game-id (key ctx) bf @(val ctx)]
+        :when (is-game-over? bf)]
+    game-id))
