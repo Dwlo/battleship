@@ -12,7 +12,7 @@
 (defroutes app-routes
   (GET "/" [] "<br/><h1>Battleship ... </h1> boom ! fire !")
 
-  (GET "/admin/info" [] (response (logic/show-context battlefields)))
+  (GET "/battleship/admin/info" [] (response (logic/show-global-context battlefields)))
 
   (POST "/battleship/games" []
         (let [game-id (logic/generate-game-id)]

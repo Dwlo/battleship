@@ -18,7 +18,7 @@
   []
   (str (java.util.UUID/randomUUID)))
 
-(defn show-context "Shows all game contexts.
+(defn show-global-context "Shows the global context.
 Ex: {game-id {player1 score1 player2 score2}}"
   [battlefields]
   (for [ctx @battlefields
