@@ -13,3 +13,7 @@
   [row col player battlefield]
   {:attack-status (attempt-attack row col player battlefield)
    :game-status ({true :over false :running} (is-game-over? @battlefield))})
+
+(defn generate-game-id "Generates an random game identifier."
+  []
+  (str (java.util.UUID/randomUUID)))

@@ -8,15 +8,12 @@
 
 (def battlefields (atom {}))
 
-(defn generate-game-id "Generates an random game identifier."
-  []
-  (str (java.util.UUID/randomUUID)))
 
 (defroutes app-routes
   (GET "/" [] "<br/><h1>Battleship ... </h1> boom ! fire !")
 
   (POST "/battleship/games" []
-        (let [game-id (generate-game-id)]
+        (let [game-id (logic/generate-game-id)]
           (do
             (swap! battlefields assoc game-id (atom (core/generate-battlefield)))
             (response {:game-id game-id}))))

@@ -83,3 +83,9 @@
     (testing "5x5 matrice: Fire on enemy located at row=0 col=2"
       (let [actual (launch-attack 4 0 "plx" battlefield)]
         (is (= actual {:attack-status :success :game-status :over}))))))
+
+(deftest test-generate-game-id
+  (testing "Generates a random identifier."
+    (let [actual (generate-game-id)]
+      (is (not= actual nil))
+      (is (false? (.isEmpty actual))))))
