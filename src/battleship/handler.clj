@@ -3,14 +3,15 @@
   (:require [compojure.handler :as handler]
             [battleship.core   :as core ]
             [battleship.logic  :as logic]
-            [compojure.route   :as route]))
+            [compojure.route   :as route]
+            [battleship.view   :as view]))
 
 
 (def battlefields (atom {}))
 
 
 (defroutes app-routes
-  (GET "/" [] "<br/><h1>Battleship ... </h1> boom ! fire !")
+  (GET "/" [] (view/show-index))
 
   (GET "/battleship/admin/info" [] (response (logic/show-global-context battlefields)))
 
