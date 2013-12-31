@@ -8,4 +8,7 @@
         [:body
          [:br]
          [:h1 "Battleship..."]
-         "boom ! fire !"]))
+         "boom ! fire !"
+         [:bf]
+         [:h1]
+         [:div {:align "center"} [:img {:src "logo.png"}]]]))
