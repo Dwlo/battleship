@@ -14,6 +14,9 @@
 
   (GET "/battleship/admin/info" [] (response (logic/show-global-context battlefields)))
 
+  (DELETE "/battleship/admin/gc" [] (do (logic/gc battlefields)
+                                      (response {:clean-up :done})))
+
   (POST "/battleship/games" []
         (let [game-id (logic/generate-game-id)]
           (do

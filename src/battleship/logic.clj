@@ -32,3 +32,7 @@ Ex: {game-id {player1 score1 player2 score2}}"
         :let [game-id (key ctx) bf @(val ctx)]
         :when (is-game-over? bf)]
     game-id))
+
+(defn gc "Releases the terminated games."
+  [battlefields]
+  (swap! battlefields #(apply dissoc % (terminated-games battlefields))))
