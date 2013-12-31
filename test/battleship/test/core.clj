@@ -89,8 +89,7 @@
                      {:has-enemy? false :shot-by :none}
                      {:has-enemy? false :shot-by :none}
                      {:has-enemy? false :shot-by :none}
-                     {:has-enemy? true  :shot-by "player1"}
-                     {:has-enemy? true  :shot-by :none}]]
+                     {:has-enemy? true  :shot-by "player1"}]]
     (testing "5x5 matrice: Current score."
       (let [actual (score battlefield)]
         (is (= actual {"player1" 3 "player2" 3 "playerX" 1 "playerX2" 2}))))
@@ -173,8 +172,7 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
-                           {:has-enemy? true  :shot-by "player1"}
-                           {:has-enemy? true  :shot-by :none}])]
+                           {:has-enemy? true  :shot-by "player1"}])]
     (testing "5x5 matrice: Shoot enemy in cell: row=2 col=1"
       (let [actual (shoot-enemy 2 1 "plx" battlefield)]
         (is (= (:shot-by (get-cell 2 1 actual)) "plx" ))))))

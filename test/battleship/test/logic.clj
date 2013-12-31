@@ -28,8 +28,7 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
-                           {:has-enemy? true  :shot-by "player1"}
-                           {:has-enemy? true  :shot-by :none}])]
+                           {:has-enemy? true  :shot-by "player1"}])]
     (testing "5x5 matrice: Fire on enemy located at row=0 col=0"
       (let [actual (attempt-attack 0 0 "plx" battlefield)]
         (is (= actual :failure))))
