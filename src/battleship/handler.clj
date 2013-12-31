@@ -11,7 +11,7 @@
 
 
 (defroutes app-routes
-  (GET "/" [] (view/show-index))
+  (GET "/" [] (view/index-page))
 
   (GET "/battleship/admin/info" [] (response (logic/show-global-context battlefields)))
 
