@@ -11,21 +11,21 @@
 
 
 (defroutes app-routes
+  ;; Public APIs
   (GET "/" [] (view/index-page))
 
-  (GET "/battleship/admin/info" [] (response (logic/show-global-context battlefields)))
+  ;; Admin APIs
+  (GET "/admin/info" [] (response (logic/show-global-context battlefields)))
+  (DELETE "/admin/gc" [] (do (logic/gc battlefields) (response {:clean-up :done})))
 
-  (DELETE "/battleship/admin/gc" [] (do (logic/gc battlefields) (response {:clean-up :done})))
-
-  (GET "/battleship/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
-
-  (POST "/battleship/games" []
+  ;; Players APIs
+  (GET "/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
+  (POST "/games" []
         (let [game-id (logic/generate-game-id)]
           (do
             (swap! battlefields assoc game-id (atom (core/generate-battlefield)))
             (response {:game-id game-id}))))
-
-  (PUT "/battleship/games/:game-id/players/:player/attack"
+  (PUT "/games/:game-id/players/:player/attack"
        {{row :row col :col player :player game-id :game-id} :params}
        (response (logic/launch-attack
                   (read-string row)
@@ -33,8 +33,8 @@
                   player
                   (@battlefields game-id))))
 
+  ;; Others
   (route/resources "/")
-
   (route/not-found "Not Found"))
 
 (def app
