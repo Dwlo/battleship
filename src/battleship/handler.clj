@@ -12,19 +12,25 @@
 
 (defroutes app-routes
   ;; Public APIs
+  ;; --- The index page.
   (GET "/" [] (view/index-page))
 
   ;; Admin APIs
+  ;; --- Getting infos about the global context.
   (GET "/admin/info" [] (response (logic/show-global-context battlefields)))
+  ;; --- Releasing the terminated games from the global context.
   (DELETE "/admin/gc" [] (do (logic/gc battlefields) (response {:clean-up :done})))
 
   ;; Players APIs
+  ;; --- Retrieve the battlefield for the given game id.
   (GET "/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
+  ;; --- Generates a new game context.
   (POST "/games" []
         (let [game-id (logic/generate-game-id)]
           (do
             (swap! battlefields assoc game-id (atom (core/generate-battlefield)))
             (response {:game-id game-id}))))
+  ;; --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/attack"
        {{row :row col :col player :player game-id :game-id} :params}
        (response (logic/launch-attack
