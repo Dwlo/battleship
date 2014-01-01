@@ -176,3 +176,34 @@
     (testing "5x5 matrice: Shoot enemy in cell: row=2 col=1"
       (let [actual (shoot-enemy 2 1 "plx" battlefield)]
         (is (= (:shot-by (get-cell 2 1 actual)) "plx" ))))))
+
+
+(deftest test-battlefield-string
+  (let [battlefield [{:has-enemy? true  :shot-by "player1"}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "player1"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "playerX"}
+                     {:has-enemy? true  :shot-by "playerX2"}
+                     {:has-enemy? true  :shot-by "playerX2"}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "player1"}]]
+    (testing "5x5 matrice: draw ."
+      (let [actual (battlefield-string battlefield)]
+        (is (= actual "player1|-|-|-|player1\nplayer2|player2|player2|-|-\n-|-|-|-|-\n-|-|playerX|playerX2|playerX2\n-|-|-|-|player1"))))))

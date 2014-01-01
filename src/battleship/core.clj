@@ -1,4 +1,5 @@
-(ns battleship.core)
+(ns battleship.core
+  (:require [clojure.string :as str]))
 
 
 (def matrix-row 5)
@@ -41,3 +42,9 @@
 (defn shoot-enemy "Marks a cell as shot with the name of the player."
   [row col player battlefield]
   (swap! battlefield update-in [(compute-index row col) :shot-by] (fn [x] player )))
+
+(defn battlefield-string "Draws the battlefield with shot enemies."
+  [battlefield]
+  (str/join "\n"(map (fn [names] (str/join "|" names)) (partition 5 (map (fn [shot-by] (if (= shot-by :none) "-" shot-by))
+                                                           (map (fn [cell] (cell :shot-by)) battlefield)))))
+)
