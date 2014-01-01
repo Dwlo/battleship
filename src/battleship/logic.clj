@@ -12,7 +12,8 @@
 (defn launch-attack "Launches an attack against an enemy supposed to be at a given location and returns a result as following: {:attack-status :success|:failure :game-status :running|:over}"
   [row col player battlefield]
   {:attack-status (attempt-attack row col player battlefield)
-   :game-status ({true :over false :running} (is-game-over? @battlefield))})
+   :game-status ({true :over false :running} (is-game-over? @battlefield))
+   :score (score @battlefield)})
 
 (defn generate-game-id "Generates an random game identifier."
   []
