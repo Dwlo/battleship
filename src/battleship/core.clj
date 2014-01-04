@@ -1,16 +1,13 @@
 (ns battleship.core
   (:require [clojure.string :as str]))
 
-
 (def matrix-row 5)
-
 
 (defn compute-index "Computes a cell index based on a row and a column. "
   [row col]
   (+ col (* matrix-row row)))
 
-(defn get-cell
-  "Retrieves a cell from the battlefield: [:a :b :c]"
+(defn get-cell "Retrieves a cell from the battlefield: [:a :b :c]"
   [row col battlefield]
   (battlefield (compute-index row col)))
 
