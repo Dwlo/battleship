@@ -45,6 +45,9 @@
 
 (defn battlefield-string "Draws the battlefield with shot enemies."
   [battlefield]
-  (str/join "\n"(map (fn [names] (str/join "|" names)) (partition 5 (map (fn [shot-by] (if (= shot-by :none) "-" shot-by))
-                                                           (map (fn [cell] (cell :shot-by)) battlefield)))))
-)
+  (->> battlefield
+       (map (fn [cell] (cell :shot-by)))
+       (map (fn [shot-by] (if (= shot-by :none) "-" shot-by)))
+       (partition 5)
+       (map (fn [names] (str/join "|" names)))
+       (str/join "\n")))
