@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function usage() {
+    echo "USAGE   : $0 <game-id>"
+    echo "EXAMPLE : $0 123"
+    exit 1
+}
+
+if [ -z $1 ]
+then
+    usage
+
+fi
+
+curl "http://localhost:3000/games/$1/battlefield"

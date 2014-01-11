@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function usage() {
+    echo "usage: $0 <target-dir> <fitnesse-url>"
+    echo "example: $0 1.6-dev " \'"http://wcid-fitnesse.ovh.wikeo.webadeo.net:8080/NonRegWci.NonRegWciLight?responder=suite&format=xml"\'
+    exit 1
+}
+
+curl -v 'http://localhost:3000/admin/info'

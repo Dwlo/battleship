@@ -1,0 +1,30 @@
+#!/bin/bash
+
+function usage() {
+    echo "USAGE   : $0 <game-id> <player> <row> <col>"
+    echo "EXAMPLE : $0 123 plx 3 2"
+    exit 1
+}
+
+if [ -z $1 ] || [ -z $2 ] || [ -z $3 ] || [ -z $4 ]
+then
+    usage
+
+fi
+
+echo -e "\n>> FIRE"
+
+echo -e "- GAME   =$1"
+echo -e "- PLAYER =$2"
+echo -e "- ROW    =$3"
+echo -e "- COL    =$4"
+
+echo -e "\n>> RESULT"
+
+curl -X PUT "http://localhost:3000/games/$1/players/$2/attack?row=$3&col=$4"
+
+echo -e "\n\n>>BATTLEFIELD "
+
+`dirname $0`/show-battlefield $1
+
+echo -e "\n"
