@@ -36,10 +36,6 @@
   [battlefield]
   (not (true? (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))
 
-(defn shoot-enemy "Marks a cell as shot with the name of the player."
-  [row col player battlefield]
-  (swap! battlefield update-in [(compute-index row col) :shot-by] (fn [x] player )))
-
 (defn battlefield-string "Draws the battlefield with shot enemies."
   [battlefield]
   (->> battlefield

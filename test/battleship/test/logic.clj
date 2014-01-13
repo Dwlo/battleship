@@ -1,7 +1,38 @@
 (ns battleship.test.logic
+  (:require [battleship.core :as core])
   (:use clojure.test
         battleship.logic))
 
+
+(deftest test-shoot-enemy
+  (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "player1"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? true  :shot-by "player2"}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "playerX"}
+                           {:has-enemy? true  :shot-by "playerX2"}
+                           {:has-enemy? true  :shot-by "playerX2"}
+                           {:has-enemy? true  :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? false :shot-by :none}
+                           {:has-enemy? true  :shot-by "player1"}])]
+    (testing "5x5 matrice: Shoot enemy in cell: row=2 col=1"
+      (let [actual (shoot-enemy 2 1 "plx" battlefield)]
+        (is (= (:shot-by (core/get-cell 2 1 actual)) "plx" ))))))
 
 (deftest test-attempt-attack
   (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
