@@ -2,6 +2,16 @@
   (:use battleship.core))
 
 
+(defn generate-game-id "Generates an random game identifier."
+  []
+  (str (java.util.UUID/randomUUID)))
+
+(defn register-new-game "Registers a new game into the global context."
+  [battlefields]
+  (let [game-id (generate-game-id)]
+    (swap! battlefields assoc game-id (atom (generate-battlefield)))
+    game-id))
+
 (defn shoot-enemy "Marks a cell as shot with the name of the player."
   [row col player battlefield]
   (swap! battlefield update-in [(compute-index row col) :shot-by] (fn [x] player )))
@@ -19,17 +29,12 @@
    :game-status ({true :over false :running} (is-game-over? @battlefield))
    :score (score @battlefield)})
 
-(defn generate-game-id "Generates an random game identifier."
-  []
-  (str (java.util.UUID/randomUUID)))
-
 (defn show-global-context "Shows the global context.
 Ex: {game-id {player1 score1 player2 score2}}"
   [battlefields]
   (for [ctx @battlefields
         :let [game-id (key ctx) bf @(val ctx) status {false :running  true :over}]]
     {game-id (assoc (score bf) :status (status (is-game-over? bf)))}))
-
 
 (defn terminated-games "Returns all the games in a over state"
   [battlefields]

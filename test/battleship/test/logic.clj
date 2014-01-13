@@ -4,6 +4,17 @@
         battleship.logic))
 
 
+(deftest test-register-new-game
+  (let [battlefields (atom {})]
+    (testing "Adding new name into empty global game context"
+      (let [actual (register-new-game battlefields)]
+        (is (not= actual nil))
+        (is (= (count @battlefields) 1))))
+    (testing "Adding new name into an not empty global game context"
+      (let [actual (register-new-game battlefields)]
+        (is (not= actual nil))
+        (is (= (count @battlefields) 2))))))
+
 (deftest test-shoot-enemy
   (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
                            {:has-enemy? false :shot-by :none}

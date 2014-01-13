@@ -26,9 +26,7 @@
   (GET "/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
   ;; --- Generates a new game context.
   (POST "/games" []
-        (let [game-id (logic/generate-game-id)]
-          (swap! battlefields assoc game-id (atom (core/generate-battlefield)))
-          (response {:game-id game-id})))
+        (response {:game-id (logic/register-new-game battlefields)}))
   ;; --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/attack"
        {{row :row col :col player :player game-id :game-id} :params}
