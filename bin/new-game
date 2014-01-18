@@ -1,3 +1,54 @@
 #!/bin/bash
 
-curl -X POST 'http://localhost:3000/games'
+source /Users/dawidlo/my-projects/battleship/bin/json-parser
+
+BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
+
+read_input() {
+    read -t 1 discard
+    read -p "CHOICE ? " choice
+}
+
+use_game_id() {
+    read_input
+    GAME_ID=${choice}
+}
+
+
+generate_game_id() {
+    RESPONSE=$(curl -s -X POST "${BATTLESHIP_URL}/games")
+    GAME_ID=$(jsonElement "game-id" ${RESPONSE})
+}
+
+game_init() {
+    echo -e "\n-- GAME INITIALIZATION"
+    echo -e "--- (u) I'VE GOT AN URL"
+    echo -e "--- (g) GENERATE URL"
+    read_input
+    case $choice in
+        u|U) use_game_id  ;;
+        g|G) generate_game_id ;;
+        *) echo WRONG CHOICE ;;
+    esac
+
+    export BATTLESHIP_GAME_ID=${GAME_ID}
+    echo -e "\nCURRENT GAME URL IS: ${BATTLESHIP_URL}"
+    echo -e "CURRENT GAME ID IS : ${GAME_ID}"
+}
+
+game_menu() {
+    echo -e "\n-- MAIN MENU"
+    echo -e "--- (f) MAKE FIRE"
+    echo -e "--- (b) SHOW BATTLEFIELD"
+    read_input
+    case $choice in
+        f|F) echo FIRE ;;
+        b|B) echo BATTLEFIELD ;;
+        *) echo WRONG CHOICE ;;
+    esac
+}
+
+###
+
+game_init
+game_menu

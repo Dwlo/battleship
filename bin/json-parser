@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#Gets a single json element value from a json blob.
+#For json values (like {"key":{"k2":"val"}}) you need to first get "key"
+#then do an additional call with the value as the input to the function and "k2" as the argument
+#Example1: cityvar=$(jsonElement "city" "{\"city\":\"Seattle\"}")
+#Example2: cityvar=$(jsonElement "city" "{\"city\":{\"name\":\"Seattle\","county":"King"}")
+#                       countyvar=$(jsonElement "county" "$cityvar")
+#                       echo $countyvar #outputs "King" (without quotes)
+jsonElement(){
+        #echo $1
+        out=$(echo $2 | awk -F"[,:]" '{for(i=1;i<=NF;i++){if($i~/'$1'\042/){print $(i+1)} } }')
+        if [[ $out == \"*\" ]]; #test if the string starts and ends in a quote
+        then
+            echo "${out:1:${#out}-2}" #removes first and last quotes
+        elif [[  $out == \"*\"} ]];
+        then
+            echo "${out:1:${#out}-3}" #removes first and last quotes plus the curly brace
+        else
+            echo $out
+        fi
+}
