@@ -12,4 +12,4 @@ then
 
 fi
 
-curl "http://localhost:3000/games/$1/battlefield"
+curl "$1/games/$2/battlefield"

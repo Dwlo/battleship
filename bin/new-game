@@ -1,17 +1,20 @@
 #!/bin/bash
 
-source `dirname $0`/json-parser
+BIN_DIR=`dirname $0`
+source ${BIN_DIR}/json-parser
 
 BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
+PLAYER="D"
+GAME_OVER=false
 
 read_input() {
     read -t 1 discard
-    read -p "CHOICE ? " choice
+    read -p "$1" CHOICE
 }
 
 use_game_id() {
-    read_input
-    GAME_ID=${choice}
+    read_input "CHOICE ? "
+    GAME_ID=${CHOICE}
 }
 
 
@@ -24,8 +27,8 @@ game_init() {
     echo -e "\n-- GAME INITIALIZATION"
     echo -e "--- (u) I'VE GOT AN URL"
     echo -e "--- (g) GENERATE URL"
-    read_input
-    case $choice in
+    read_input "CHOICE ? "
+    case $CHOICE in
         u|U) use_game_id  ;;
         g|G) generate_game_id ;;
         *) echo WRONG CHOICE ;;
@@ -36,19 +39,39 @@ game_init() {
     echo -e "CURRENT GAME ID IS : ${GAME_ID}"
 }
 
+show_battlefield() {
+    ${BIN_DIR}/show-battlefield ${BATTLESHIP_URL} ${GAME_ID}
+}
+
+fire() {
+    read_input "ROW ? "
+    ROW=$CHOICE
+    read_input "COL ? "
+    COL=$CHOICE
+    echo "Query: ${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL}"
+    ${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL}
+}
+
 game_menu() {
     echo -e "\n-- MAIN MENU"
     echo -e "--- (f) MAKE FIRE"
     echo -e "--- (b) SHOW BATTLEFIELD"
-    read_input
-    case $choice in
-        f|F) echo FIRE ;;
-        b|B) echo BATTLEFIELD ;;
+    read_input "CHOICE ? "
+    case $CHOICE in
+        f|F) fire ;;
+        b|B) show_battlefield ;;
         *) echo WRONG CHOICE ;;
     esac
 }
 
-###
+
+### Logic
 
 game_init
-game_menu
+while [ "${GAME_OVER}" != "true"  ];
+do
+    game_menu
+done
+
+echo -e "-- GAME OVER"
+echo -e "--- PLQYER X WINS "
