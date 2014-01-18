@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /Users/dawidlo/my-projects/battleship/bin/json-parser
+source `dirname $0`/json-parser
 
 BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
 
