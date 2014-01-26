@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function usage() {
-    echo "USAGE   : $0 <game-id>"
-    echo "EXAMPLE : $0 123"
+    echo "USAGE   : $0 <url> <game-id>"
+    echo "EXAMPLE : $0 http://localhost:3000 123"
     exit 1
 }
 
