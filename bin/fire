@@ -12,20 +12,4 @@ then
 
 fi
 
-echo -e "\n>> FIRE"
-
-echo -e "- URL    =$1"
-echo -e "- GAME   =$2"
-echo -e "- PLAYER =$3"
-echo -e "- ROW    =$4"
-echo -e "- COL    =$5"
-
-echo -e "\n>> RESULT"
-
-curl -X PUT "$1/games/$2/players/$3/attack?row=$4&col=$5"
-
-echo -e "\n\n>>BATTLEFIELD "
-
-`dirname $0`/show-battlefield $1 $2
-
-echo -e "\n"
+curl -s -X PUT "$1/games/$2/players/$3/attack?row=$4&col=$5"

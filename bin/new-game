@@ -4,8 +4,9 @@ BIN_DIR=`dirname $0`
 source ${BIN_DIR}/json-parser
 
 BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
-PLAYER="D"
-GAME_OVER=false
+#BATTLESHIP_URL='http://localhost:3000/'
+PLAYER="NO PLAYER SET!"
+GAME_STATUS="running"
 
 read_input() {
     read -t 1 discard
@@ -17,7 +18,6 @@ use_game_id() {
     GAME_ID=${CHOICE}
 }
 
-
 generate_game_id() {
     RESPONSE=$(curl -s -X POST "${BATTLESHIP_URL}/games")
     GAME_ID=$(jsonElement "game-id" ${RESPONSE})
@@ -25,6 +25,10 @@ generate_game_id() {
 
 game_init() {
     echo -e "\n-- GAME INITIALIZATION"
+
+    read_input "PLAYER PSEUDO (ONE LETTER) ? "
+    PLAYER=${CHOICE}
+
     echo -e "--- (u) I'VE GOT AN URL"
     echo -e "--- (g) GENERATE URL"
     read_input "CHOICE ? "
@@ -34,13 +38,14 @@ game_init() {
         *) echo WRONG CHOICE ;;
     esac
 
-    export BATTLESHIP_GAME_ID=${GAME_ID}
+    BATTLESHIP_GAME_ID=${GAME_ID}
     echo -e "\nCURRENT GAME URL IS: ${BATTLESHIP_URL}"
     echo -e "CURRENT GAME ID IS : ${GAME_ID}"
 }
 
 show_battlefield() {
     ${BIN_DIR}/show-battlefield ${BATTLESHIP_URL} ${GAME_ID}
+    echo -e "\n"
 }
 
 fire() {
@@ -48,9 +53,26 @@ fire() {
     ROW=$CHOICE
     read_input "COL ? "
     COL=$CHOICE
+
+    echo -e "\n>> FIRE"
+
+    echo -e "- URL    = ${BATTLESHIP_URL}"
+    echo -e "- GAME   = ${GAME_ID}"
+    echo -e "- PLAYER = ${PLAYER}"
+    echo -e "- ROW    = ${ROW}"
+    echo -e "- COL    = ${COL}"
+
     echo "Query: ${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL}"
-    ${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL}
+    FIRE_RESPONSE=$(${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL})
+
+    echo -e "\n>> RESULT"
+    echo -e "Fire response: ${FIRE_RESPONSE}"
 }
+
+set_game_status() {
+    GAME_STATUS=$(jsonElement "game-status" ${FIRE_RESPONSE})
+}
+
 
 game_menu() {
     echo -e "\n-- MAIN MENU"
@@ -58,20 +80,25 @@ game_menu() {
     echo -e "--- (b) SHOW BATTLEFIELD"
     read_input "CHOICE ? "
     case $CHOICE in
-        f|F) fire ;;
+        f|F) fire && show_battlefield && set_game_status ${FIRE_RESPONSE} ;;
         b|B) show_battlefield ;;
         *) echo WRONG CHOICE ;;
     esac
 }
 
-
-### Logic
+summary() {
+    echo -e "\n\n\n"
+    echo -e ">> GAME OVER"
+    echo -e ">>> BATTLEFIELD"
+    show_battlefield
+    echo -e ">>> FINAL RESULTS"
+    echo -e "${bFIRE_RESPONSE}"
+}
 
 game_init
-while [ "${GAME_OVER}" != "true"  ];
+while [ "${GAME_STATUS}" != "over"  ];
 do
     game_menu
 done
 
-echo -e "-- GAME OVER"
-echo -e "--- PLQYER X WINS "
+summary
