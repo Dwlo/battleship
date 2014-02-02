@@ -6,8 +6,8 @@
 <li><a href="#sec-2">2. What it is about?</a></li>
 <li><a href="#sec-3">3. How to play</a>
 <ul>
-<li><a href="#sec-3-1">3.1. the game architecture</a></li>
-<li><a href="#sec-3-2">3.2. the REST API</a>
+<li><a href="#sec-3-1">3.1. The game architecture</a></li>
+<li><a href="#sec-3-2">3.2. The REST API</a>
 <ul>
 <li><a href="#sec-3-2-1">3.2.1. Start a new game play</a></li>
 <li><a href="#sec-3-2-2">3.2.2. Fire on the enemy</a></li>
@@ -31,13 +31,13 @@ The idea behind is to make each developer write small programs and get challenge
 
 To play this game you must know about:
 
-## the game architecture
+## The game architecture
 
 The Battleship game is based on a client-server architecture.
 The server side is already developed and hosts the game logic. It is available at this url:
-[[<http://battleship.dwlo.cloudbees.net>] [<http://battleship.dwlo.cloudbees.net>]]. So all your requests will address that server.
+<http://battleship.dwlo.cloudbees.net>. So all your requests will address that server.
 
-## the REST API
+## The REST API
 
 This part is at your charge. You have to code your own REST client using the following APIs:
 
