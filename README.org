@@ -1,0 +1,55 @@
+#+STARTUP: indent
+
+* Battleship
+
+* What it is about?
+This game targets all developers, no  matter the language they use.
+The idea behind is to make each developer write small programs and get challenged with developers.
+
+* How to play
+To play this game you must know about:
+
+** the game architecture
+The Battleship game is based on a client-server architecture.
+The server side is already developed and hosts the game logic. It is available at this url:
+[[http://battleship.dwlo.cloudbees.net] [http://battleship.dwlo.cloudbees.net]]. So all your requests will address that server.
+
+** the REST API
+This part is at your charge. You have to code your own REST client using the following APIs:
+
+*** Start a new game play
+This request is made once per game play and shared with other players as game identifier.
+**** Method   : POST
+**** URI      : /games
+**** RESPONSE :
+#+begin_src json
+{
+    "game-id": "32060218-5c1b-4b00-8b11-be49b1479c89"
+}
+#+end_src
+
+*** Fire on the enemy
+**** Method   : PUT
+**** URI      : /games/<game-id>/players/<player-id>/attack
+**** RESPONSE :
+#+begin_src json
+{
+    "attack-status": "success|failure",
+    "game-status": "running|over",
+    "score": {
+        "D": 1,
+        "L": 1
+    }
+}
+#+end_src
+*** Show the battleship plan
+**** Method   : GET
+**** URI      : /games/<game-id>/battlefield
+**** RESPONSE :
+#+begin_src text
+-|-|-|-|-
+-|D|-|-|-
+-|-|-|L|-
+-|-|-|-|-
+-|-|-|-|-
+#+end_src
