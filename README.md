@@ -59,7 +59,7 @@ This request is made once per game play and shared with other players as game id
 
 1.  Method   : PUT
 
-2.  URI      : /games/<game-id>/players/<player-id>/attack
+2.  URI      : /games/game-id/players/player-id/attack
 
 3.  RESPONSE :
 
@@ -76,7 +76,7 @@ This request is made once per game play and shared with other players as game id
 
 1.  Method   : GET
 
-2.  URI      : /games/<game-id>/battlefield
+2.  URI      : /games/game-id/battlefield
 
 3.  RESPONSE :
 

@@ -30,7 +30,7 @@ This request is made once per game play and shared with other players as game id
 
 *** Fire on the enemy
 **** Method   : PUT
-**** URI      : /games/<game-id>/players/<player-id>/attack
+**** URI      : /games/game-id/players/player-id/attack
 **** RESPONSE :
 #+begin_src json
 {
@@ -44,7 +44,7 @@ This request is made once per game play and shared with other players as game id
 #+end_src
 *** Show the battleship plan
 **** Method   : GET
-**** URI      : /games/<game-id>/battlefield
+**** URI      : /games/game-id/battlefield
 **** RESPONSE :
 #+begin_src text
 -|-|-|-|-
