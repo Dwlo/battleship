@@ -30,7 +30,7 @@ The idea behind is to make each developer write small programs and get challenge
 
 # Game principle
 
-It's a contest game. To win, players must shoot as much enemies they can.
+It's a contest game. To win, players must shoot as much enemies as they can.
 **NB: They are not shooting each others !!!**
 
 # How to play
