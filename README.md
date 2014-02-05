@@ -4,14 +4,15 @@
 <ul>
 <li><a href="#sec-1">1. Battleship</a></li>
 <li><a href="#sec-2">2. What it is about?</a></li>
-<li><a href="#sec-3">3. How to play</a>
+<li><a href="#sec-3">3. Game principle</a></li>
+<li><a href="#sec-4">4. How to play</a>
 <ul>
-<li><a href="#sec-3-1">3.1. The game architecture</a></li>
-<li><a href="#sec-3-2">3.2. The REST API</a>
+<li><a href="#sec-4-1">4.1. Game architecture</a></li>
+<li><a href="#sec-4-2">4.2. The REST API</a>
 <ul>
-<li><a href="#sec-3-2-1">3.2.1. Start a new game play</a></li>
-<li><a href="#sec-3-2-2">3.2.2. Fire on the enemy</a></li>
-<li><a href="#sec-3-2-3">3.2.3. Show the battleship plan</a></li>
+<li><a href="#sec-4-2-1">4.2.1. Start a new game play</a></li>
+<li><a href="#sec-4-2-2">4.2.2. Fire on the enemy</a></li>
+<li><a href="#sec-4-2-3">4.2.3. Show the battleship plan</a></li>
 </ul>
 </li>
 </ul>
@@ -27,11 +28,16 @@
 This game targets all developers, no  matter the language they use.
 The idea behind is to make each developer write small programs and get challenged with developers.
 
+# Game principle
+
+It's a contest game. To win, players must shot as much enemies they can.
+**NB: They are not shooting each others !!!**
+
 # How to play
 
 To play this game you must know about:
 
-## The game architecture
+## Game architecture
 
 The Battleship game is based on a client-server architecture.
 The server side is already developed and hosts the game logic. It is available at this url:
