@@ -17,6 +17,11 @@
 </li>
 </ul>
 </li>
+<li><a href="#sec-5">5. CLIENTS</a>
+<ul>
+<li><a href="#sec-5-1">5.1. BASH REST client (Default implementation)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -91,3 +96,11 @@ This request is made once per game play and shared with other players as game id
         -|-|-|L|-
         -|-|-|-|-
         -|-|-|-|-
+
+# CLIENTS
+
+## BASH REST client (Default implementation)
+
+This is a sample to quickly test the game and write your own client. Once
+done you can share your implementation and send me a pull request.
+Find the BASH REST client [here](https://github.com/Dwlo/battleship/blob/master/bin/battleship-client)

@@ -57,3 +57,9 @@ This request is made once per game play and shared with other players as game id
 -|-|-|-|-
 -|-|-|-|-
 #+end_src
+
+* CLIENTS
+** BASH REST client (Default implementation)
+This is a sample to quickly test the game and write your own client. Once
+done you can share your implementation and send me a pull request.
+Find the BASH REST client [[https://github.com/Dwlo/battleship/blob/master/bin/battleship-client][here]]
