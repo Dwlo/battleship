@@ -26,7 +26,7 @@
 # What it is about?
 
 This game targets all developers, no  matter the language they use.
-The idea behind is to make each developer write small programs and get challenged with developers.
+The idea behind is to make each developer write small programs and get challenged against other developers.
 
 # Game principle
 
@@ -39,7 +39,7 @@ To play this game you must know about:
 
 ## Game architecture
 
-The Battleship game is based on a client-server architecture.
+The Battleship game is based on a REST client-server architecture.
 The server side is already developed and hosts the game logic. It is available at this url:
 <http://battleship.dwlo.cloudbees.net>. So all your requests will address that server.
 
