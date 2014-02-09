@@ -14,7 +14,7 @@ read_input() {
 }
 
 use_game_id() {
-    read_input "CHOICE ? "
+    read_input "GAME ID ? "
     GAME_ID=${CHOICE}
 }
 
@@ -29,8 +29,8 @@ game_init() {
     read_input "PLAYER PSEUDO (ONE LETTER) ? "
     PLAYER=${CHOICE}
 
-    echo -e "--- (u) I'VE GOT AN URL"
-    echo -e "--- (g) GENERATE URL"
+    echo -e "--- (u) I'VE GOT A GAME ID"
+    echo -e "--- (g) GENERATE A NEW GAME ID"
     read_input "CHOICE ? "
     case $CHOICE in
         u|U) use_game_id  ;;
@@ -62,7 +62,6 @@ fire() {
     echo -e "- ROW    = ${ROW}"
     echo -e "- COL    = ${COL}"
 
-    echo "Query: ${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL}"
     FIRE_RESPONSE=$(${BIN_DIR}/fire ${BATTLESHIP_URL} ${GAME_ID} ${PLAYER} ${ROW} ${COL})
 
     echo -e "\n>> RESULT"
@@ -84,6 +83,7 @@ game_menu() {
         b|B) show_battlefield ;;
         *) echo WRONG CHOICE ;;
     esac
+    read -t 5 discard
 }
 
 summary() {
