@@ -1,4 +1,5 @@
 (ns battleship.logic
+  "Implementation of the rules of the game."
   (:use battleship.core))
 
 
