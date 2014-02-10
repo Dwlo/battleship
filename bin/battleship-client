@@ -14,7 +14,7 @@ read_input() {
 }
 
 freeze(){
-    read -t "$1" discard
+    read -t $1 discard
 }
 
 use_game_id() {
@@ -28,6 +28,7 @@ generate_game_id() {
 }
 
 game_init() {
+    clear
     echo -e "\n-- GAME INITIALIZATION"
 
     read_input "PLAYER PSEUDO (ONE LETTER) ? "
@@ -53,11 +54,12 @@ show_battlefield() {
 }
 
 fire() {
-    read_input "ROW ? "
+    read_input "ROW (0 ~ 4) ? "
     ROW=$CHOICE
-    read_input "COL ? "
+    read_input "COL (0 ~ 4) ? "
     COL=$CHOICE
 
+    clear
     echo -e "\n>> FIRE"
 
     echo -e "- URL    = ${BATTLESHIP_URL}"
