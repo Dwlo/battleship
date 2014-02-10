@@ -13,6 +13,10 @@ read_input() {
     read -p "$1" CHOICE
 }
 
+freeze(){
+    read -t "$1" discard
+}
+
 use_game_id() {
     read_input "GAME ID ? "
     GAME_ID=${CHOICE}
@@ -83,7 +87,7 @@ game_menu() {
         b|B) show_battlefield ;;
         *) echo WRONG CHOICE ;;
     esac
-    read -t 5 discard
+    freeze 3
 }
 
 summary() {
