@@ -1,4 +1,5 @@
 (ns battleship.view
+  "The HTML view of a game"
   (:use hiccup.core))
 
 (def how-to-play "Sorry needs to be  defined.")

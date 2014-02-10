@@ -1,4 +1,5 @@
 (ns battleship.core
+  "Board basic manipulation: Read, Write, ..."
   (:require [clojure.string :as str]))
 
 (def matrix-row 5)
