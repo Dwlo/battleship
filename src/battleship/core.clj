@@ -2,6 +2,7 @@
   "Board basic manipulation: Read, Write, ..."
   (:require [clojure.string :as str]))
 
+
 (def matrix-row 5)
 
 (defn compute-index "Computes a cell index based on a row and a column. "

@@ -12,17 +12,19 @@
 
 
 (defroutes app-routes
-  ;; Public APIs
+  ;;;;; Public APIs
   ;; --- The index page.
   (GET "/" [] (view/index-page))
 
-  ;; Admin APIs
+
+  ;;;;; Admin APIs
   ;; --- Getting infos about the global context.
   (GET "/admin/info" [] (response (logic/show-global-context battlefields)))
   ;; --- Releasing the terminated games from the global context.
   (DELETE "/admin/gc" [] (do (logic/gc battlefields) (response {:clean-up :done})))
 
-  ;; Players APIs
+
+  ;;;;; Players APIs
   ;; --- Retrieve the battlefield for the given game id.
   (GET "/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
   ;; --- Generates a new game context.
@@ -37,7 +39,8 @@
                   player
                   (@battlefields game-id))))
 
-  ;; Others
+
+  ;;;;; Others
   (route/resources "/")
   (route/not-found "Not Found"))
 
