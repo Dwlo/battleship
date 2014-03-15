@@ -1,5 +1,5 @@
 (ns battleship.logic
-  "Implementation of the rules of the game."
+  "This package contains the battleship's game logic."
   (:use battleship.core))
 
 

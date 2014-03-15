@@ -1,5 +1,5 @@
 (ns battleship.core
-  "Board basic manipulation: Read, Write, ..."
+  "This package contains basic and elementary functions of the battleship game."
   (:require [clojure.string :as str]))
 
 

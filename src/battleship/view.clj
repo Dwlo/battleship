@@ -1,5 +1,5 @@
 (ns battleship.view
-  "The HTML view of a game"
+  "This package contains the web app pages (views)."
   (:use hiccup.core))
 
 (def how-to-play "Sorry needs to be  defined.")

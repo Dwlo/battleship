@@ -1,5 +1,5 @@
 (ns battleship.handler
-  "Define the webapp that handles the game server side."
+  "This package contains the REST API and the server instance of battleship game."
   (:use compojure.core ring.middleware.json ring.util.response)
   (:require [compojure.handler :as handler]
             [battleship.core   :as core ]
