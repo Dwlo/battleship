@@ -1,12 +1,17 @@
 #!/bin/bash
 
-BIN_DIR=`dirname $0`
-source ${BIN_DIR}/json-parser
-
+####### Start: Customize variables #######
+# Set your current server location
 BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
-#BATTLESHIP_URL='http://localhost:3000/'
+
+####### End:  Customize variables #######
+
+
 PLAYER="NO PLAYER SET!"
 GAME_STATUS="running"
+
+BIN_DIR=`dirname $0`
+source ${BIN_DIR}/json-parser
 
 read_input() {
     read -t 1 discard

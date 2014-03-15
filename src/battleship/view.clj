@@ -9,7 +9,7 @@
   (html [:head
          [:title "--Battleship--"]]
         [:body
-         [:h1 "Battleship..."]
+         [:h1 "Battleship... version 0.1.0"]
          [:h2 "How to play ?"]
          how-to-play
          [:br]

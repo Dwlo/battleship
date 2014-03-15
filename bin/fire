@@ -12,4 +12,4 @@ then
 
 fi
 
-curl -s -X PUT "$1/games/$2/players/$3/attack?row=$4&col=$5"
+curl -s -X PUT "$1/games/$2/players/$3/fire?row=$4&col=$5"

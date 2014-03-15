@@ -31,7 +31,7 @@
   (POST "/games" []
         (response {:game-id (logic/register-new-game battlefields)}))
   ;; --- Attemps an attack by a given player on a given location.
-  (PUT "/games/:game-id/players/:player/attack"
+  (PUT "/games/:game-id/players/:player/fire"
        {{row :row col :col player :player game-id :game-id} :params}
        (response (logic/launch-attack
                   (read-string row)
