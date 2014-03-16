@@ -35,7 +35,7 @@ generate_game_id() {
     GAME_ID=$(jsonElement "game-id" ${RESPONSE})
 }
 
-game_init() {
+init_game() {
     clear
     echo -e "\n-- GAME INITIALIZATION"
 
@@ -92,11 +92,6 @@ show_boom_message() {
     fi
 }
 
-game_menu() {
-    fire && set_fire_request-statuses ${FIRE_RESPONSE} && show_battlefield && show_boom_message
-    freeze ${DELAY_SEC}
-}
-
 summary() {
     echo -e "\n\n"
     echo -e ">> GAME OVER !"
@@ -105,10 +100,11 @@ summary() {
     echo -e "${FIRE_RESPONSE}"
 }
 
-game_init
+init_game
 while [ "${GAME_STATUS}" != "over"  ];
 do
-    game_menu
+    fire && set_fire_request-statuses ${FIRE_RESPONSE} && show_battlefield && show_boom_message
+    freeze ${DELAY_SEC}
 done
 
 summary
