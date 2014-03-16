@@ -13,7 +13,7 @@
          "How to play ? " [:a {:href "https://github.com/Dwlo/battleship"} "check the github repository"]
          [:br]
          [:br]
-         [:img {:src "cmdline.png"}]
+         [:img {:src "cmdline-white.png"}]
          [:bf]
          [:h1]
          [:div {:align "center"}]]))
