@@ -2,6 +2,7 @@
 
 ####### Start: Customize variables #######
 # Set your current server location
+#BATTLESHIP_URL='http://localhost:3000'
 BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
 
 ####### End:  Customize variables #######
@@ -9,12 +10,14 @@ BATTLESHIP_URL='http://battleship.dwlo.cloudbees.net'
 
 PLAYER="NO PLAYER SET!"
 GAME_STATUS="running"
+FIRE_STATUS="N/A"
+DELAY_SEC=1
 
 BIN_DIR=`dirname $0`
 source ${BIN_DIR}/json-parser
 
 read_input() {
-    read -t 1 discard
+    read -t ${DELAY_SEC} discard
     read -p "$1" CHOICE
 }
 
@@ -50,7 +53,7 @@ game_init() {
 
     BATTLESHIP_GAME_ID=${GAME_ID}
     echo -e "\nCURRENT GAME URL IS: ${BATTLESHIP_URL}"
-    echo -e "CURRENT GAME ID IS : ${GAME_ID}"
+    echo -e "CURRENT GAME ID IS : ${GAME_ID}\n"
 }
 
 show_battlefield() {
@@ -64,7 +67,6 @@ fire() {
     read_input "COL (0 ~ 4) ? "
     COL=$CHOICE
 
-    clear
     echo -e "\n>> FIRE"
 
     echo -e "- URL    = ${BATTLESHIP_URL}"
@@ -79,31 +81,28 @@ fire() {
     echo -e "Fire response: ${FIRE_RESPONSE}"
 }
 
-set_game_status() {
+set_fire_request-statuses() {
     GAME_STATUS=$(jsonElement "game-status" ${FIRE_RESPONSE})
+    FIRE_STATUS=$(jsonElement "fire-status" ${FIRE_RESPONSE})
 }
 
+show_boom_message() {
+    if [ "${FIRE_STATUS}" == "success" ]; then
+        echo -e "\n*** Nice shot !!! ***\n"
+    fi
+}
 
 game_menu() {
-    echo -e "\n-- MAIN MENU"
-    echo -e "--- (f) MAKE FIRE"
-    echo -e "--- (b) SHOW BATTLEFIELD"
-    read_input "CHOICE ? "
-    case $CHOICE in
-        f|F) fire && show_battlefield && set_game_status ${FIRE_RESPONSE} ;;
-        b|B) show_battlefield ;;
-        *) echo WRONG CHOICE ;;
-    esac
-    freeze 3
+    fire && set_fire_request-statuses ${FIRE_RESPONSE} && show_battlefield && show_boom_message
+    freeze ${DELAY_SEC}
 }
 
 summary() {
-    echo -e "\n\n\n"
-    echo -e ">> GAME OVER"
-    echo -e ">>> BATTLEFIELD"
-    show_battlefield
+    echo -e "\n\n"
+    echo -e ">> GAME OVER !"
     echo -e ">>> FINAL RESULTS"
-    echo -e "${bFIRE_RESPONSE}"
+    show_battlefield
+    echo -e "${FIRE_RESPONSE}"
 }
 
 game_init

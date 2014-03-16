@@ -1,5 +1,19 @@
 #+STARTUP: indent
 
+#+begin_src text
+
+______       _   _   _           _     _
+| ___ \     | | | | | |         | |   (_)
+| |_/ / __ _| |_| |_| | ___  ___| |__  _ _ __
+| ___ \/ _` | __| __| |/ _ \/ __| '_ \| | '_ \
+| |_/ / (_| | |_| |_| |  __/\__ \ | | | | |_) |
+\____/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/
+                                        | |      ______ ______ ______
+                                        |_|     |______|______|______|
+
+
+#+end_src
+
 * Battleship
 
 * What it is about?
@@ -34,11 +48,11 @@ This request is made once per game play and shared with other players as game id
 
 *** Fire on the enemy
 **** Method   : PUT
-**** URI      : /games/game-id/players/player-id/attack
+**** URI      : /games/game-id/players/player-id/fire
 **** RESPONSE :
 #+begin_src json
 {
-    "attack-status": "success|failure",
+    "fire-status": "success|failure",
     "game-status": "running|over",
     "score": {
         "D": 1,

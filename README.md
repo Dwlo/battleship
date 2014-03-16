@@ -1,3 +1,13 @@
+    
+    ______       _   _   _           _     _
+    | ___ \     | | | | | |         | |   (_)
+    | |_/ / __ _| |_| |_| | ___  ___| |__  _ _ __
+    | ___ \/ _` | __| __| |/ _ \/ __| '_ \| | '_ \
+    | |_/ / (_| | |_| |_| |  __/\__ \ | | | | |_) |
+    \____/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/
+                                            | |      ______ ______ ______
+                                            |_|     |______|______|______|
+
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -70,12 +80,12 @@ This request is made once per game play and shared with other players as game id
 
 1.  Method   : PUT
 
-2.  URI      : /games/game-id/players/player-id/attack
+2.  URI      : /games/game-id/players/player-id/fire
 
 3.  RESPONSE :
 
         {
-            "attack-status": "success|failure",
+            "fire-status": "success|failure",
             "game-status": "running|over",
             "score": {
                 "D": 1,
