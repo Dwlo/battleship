@@ -10,6 +10,10 @@
 
 (def battlefields (atom {}))
 
+(defn lookup-game "Extracts a game context from the context of games."
+  [game-id]
+  (@battlefields game-id))
+
 
 (defroutes app-routes
   ;;;;; Public APIs
@@ -25,7 +29,7 @@
 
 
   ;;;;; Players APIs
-  ;; --- Retrieve the battlefield for the given game id.
+  ;; --- Retrieves the battlefield for the given game id.
   (GET "/games/:game/battlefield" [game] (response (core/battlefield-string @(@battlefields game))))
   ;; --- Generates a new game context.
   (POST "/games" []
@@ -37,8 +41,7 @@
                   (read-string row)
                   (read-string col)
                   player
-                  (@battlefields game-id))))
-
+                  (lookup-game game-id))))
 
   ;;;;; Others
   (route/resources "/")
