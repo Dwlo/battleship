@@ -23,7 +23,7 @@
 
   ;;;;; Admin APIs
   ;; --- Getting infos about the global context.
-  (GET "/admin/info" [] (response (logic/show-global-context games)))
+  (GET "/admin/info" [] (response (logic/get-games-info games)))
   ;; --- Releasing the terminated games from the global context.
   (DELETE "/admin/gc" [] (do (logic/gc games) (response {:clean-up :done})))
 

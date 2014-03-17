@@ -133,7 +133,7 @@
 
 (deftest test-show-context
   (testing "5x5 matrices: 2 games context"
-    (let [actual (show-global-context (atom {"game-id1" (atom [{:has-enemy? true  :shot-by "player1"}
+    (let [actual (get-games-info (atom {"game-id1" (atom [{:has-enemy? true  :shot-by "player1"}
                                                                {:has-enemy? false :shot-by :none}
                                                                {:has-enemy? true  :shot-by :none}
                                                                {:has-enemy? false :shot-by :none}
