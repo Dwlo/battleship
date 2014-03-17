@@ -30,17 +30,21 @@
    :game-status ({true :over false :running} (is-game-over? @battlefield))
    :score (score @battlefield)})
 
-(defn show-global-context "Shows the global context.
-Ex: {game-id {player1 score1 player2 score2}}"
+(defn show-global-context "Shows the global context.Ex: {game-id {player1 score1 player2 score2}}"
   [battlefields]
   (for [ctx @battlefields
         :let [game-id (key ctx) bf @(val ctx) status {false :running  true :over}]]
     {game-id (assoc (score bf) :status (status (is-game-over? bf)))}))
 
+(defn get-game-stats "Retrieves a game context."
+  [battlefield]
+  {:status ({true :over false :running} (is-game-over? battlefield))
+   :score  (score battlefield)})
+
 (defn terminated-games "Returns all the games in a over state"
   [battlefields]
   (for [ctx @battlefields
-        :let [game-id (key ctx) bf @(val ctx)]
+        :let  [game-id (key ctx) bf @(val ctx)]
         :when (is-game-over? bf)]
     game-id))
 

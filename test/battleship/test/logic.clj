@@ -6,11 +6,11 @@
 
 (deftest test-register-new-game
   (let [battlefields (atom {})]
-    (testing "Adding new name into empty global game context"
+    (testing "Adding new game into empty global game context"
       (let [actual (register-new-game battlefields)]
         (is (not= actual nil))
         (is (= (count @battlefields) 1))))
-    (testing "Adding new name into an not empty global game context"
+    (testing "Adding new game into an not empty global game context"
       (let [actual (register-new-game battlefields)]
         (is (not= actual nil))
         (is (= (count @battlefields) 2))))))
@@ -376,3 +376,36 @@
                                      {:has-enemy? false :shot-by :none}
                                      {:has-enemy? false :shot-by :none}
                                      {:has-enemy? true  :shot-by "player1"}])))))
+
+(deftest test-get-game-stats
+  (testing "5x5 matrices: battlefield"
+    (let [actual (get-game-stats [{:has-enemy? true  :shot-by "player1"}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? true  :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? true  :shot-by "player1"}
+                                    {:has-enemy? true  :shot-by "player2"}
+                                    {:has-enemy? true  :shot-by "player2"}
+                                    {:has-enemy? true  :shot-by "player2"}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? true  :shot-by "playerX"}
+                                    {:has-enemy? true  :shot-by "playerX2"}
+                                    {:has-enemy? true  :shot-by "playerX2"}
+                                    {:has-enemy? true  :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? false :shot-by :none}
+                                    {:has-enemy? true  :shot-by "player1"}])]
+      (is (= actual {:score  {"player1"  3
+                              "player2"  3
+                              "playerX"  1
+                              "playerX2" 2}
+                     :status :running})))))
