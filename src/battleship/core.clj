@@ -21,7 +21,7 @@
   []
   {:has-enemy? (random-bool) :shot-by :none})
 
-(defn generate-battlefield "Generates a 5x5 matrix. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
+(defn generate-game "Generates a 5x5 matrix game. Each cell of this matrix looks like this: {:has-enemy? true/false :shot-by playerX}"
   []
   (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
 
