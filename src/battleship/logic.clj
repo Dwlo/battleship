@@ -20,8 +20,7 @@
 (defn attempt-attack "A player attempt to shoot an enemy. If an enemy is shot the fun returns :success otherwise :failure"
   [row col player game]
   (if (found-active-enemy? row col @game)
-    (do (shoot-enemy row col player game)
-        :success)
+    (do (shoot-enemy row col player game) :success)
     :failure))
 
 (defn fire "Fires against an enemy supposed to be at a given location.
@@ -29,7 +28,7 @@ Returns a result as following: {:fire-status :success|:failure :game-status :run
   [row col player game]
   {:fire-status (attempt-attack row col player game)
    :game-status ({true :over false :running} (is-game-over? @game))
-   :score (score @game)})
+   :score       (score @game)})
 
 (defn get-games-info "Retrieves the informations about all games. Ex: {game-id {player1 score1 player2 score2}}"
   [games]
