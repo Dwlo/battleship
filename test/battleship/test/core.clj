@@ -50,18 +50,18 @@
       (let [actual (get-cell 2 1 battlefield)]
         (is (= actual :l))))))
 
-(deftest test-found-active-enemy?
+(deftest test-found-enemy?
   (let [battlefield [{:has-enemy? true :shot-by "playerX"} :b {:has-enemy? false :shot-by :none} :d :e :f :g :h :i :j :k {:has-enemy? true :shot-by :none} :m :n :o :p :q :r :s :t :u :v :w :x :y]]
     (testing "5x5 matrice: Active enemy found at location 2 1"
-      (let [actual (found-active-enemy? 2 1 battlefield)]
+      (let [actual (found-enemy? 2 1 battlefield)]
         (is (= actual true))))
 
     (testing "5x5 matrice: Active enemy not found at location 0 2"
-      (let [actual (found-active-enemy? 0 2 battlefield)]
+      (let [actual (found-enemy? 0 2 battlefield)]
         (is (= actual false))))
 
     (testing "5x5 matrice: Active Enemy not found at location 0 0"
-      (let [actual (found-active-enemy? 0 0 battlefield)]
+      (let [actual (found-enemy? 0 0 battlefield)]
         (is (= actual false))))))
 
 (deftest test-score
