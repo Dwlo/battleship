@@ -10,7 +10,8 @@
 
 (def games (atom {}))
 
-(defn lookup-game "Extracts a game context from the context of games."
+(defn lookup-game
+  "Extracts a game context from the context of games."
   [game-id]
   (@games game-id))
 
