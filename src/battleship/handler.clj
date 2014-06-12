@@ -17,12 +17,12 @@
 
 
 (defroutes app-routes
-  ;;;;; Public APIs
+  ;;;;; Public APIs  ;;;;;
   ;; --- The index page.
   (GET "/" [] (view/index-page))
 
 
-  ;;;;; Admin APIs
+  ;;;;; Admin APIs  ;;;;;
   ;; --- Getting infos about all games.
   (GET "/admin/info" [] (response (logic/get-games-info games)))
 
@@ -30,7 +30,7 @@
   (DELETE "/admin/clean-up" [] (do (logic/clean-up games) (response {:clean-up :done})))
 
 
-  ;;;;; Players APIs
+  ;;;;; Players APIs  ;;;;;
   ;; --- Retrieves the battlefield for the given game id.
   (GET "/games/:game-id/battlefield" [game-id] (response (core/battlefield-string @(@games game-id))))
 

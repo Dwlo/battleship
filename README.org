@@ -11,7 +11,7 @@ ______       _   _   _           _     _
                                         | |      ______ ______ ______
                                         |_|     |______|______|______|
 
-
+http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 #+end_src
 
 * Battleship
@@ -60,6 +60,23 @@ This request is made once per game play and shared with other players as game id
     }
 }
 #+end_src
+
+*** Show game stats
+**** Method   : GET
+**** URI      : /games/game-id/stats
+**** RESPONSE :
+#+begin_src json
+{
+    "game-id": "ae05d295-735b-4df7-8d16-5516abcc4557",
+    "score": {
+        "D": 2,
+        "L": 1
+    },
+    "status": "running"
+}
+#+end_src
+
+
 *** Show the battleship plan
 **** Method   : GET
 **** URI      : /games/game-id/battlefield
