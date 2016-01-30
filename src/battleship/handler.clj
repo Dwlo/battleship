@@ -1,11 +1,13 @@
 (ns battleship.handler
   "This package contains the REST API and the server instance of battleship game."
-  (:use compojure.core ring.middleware.json ring.util.response)
-  (:require [compojure.handler :as handler]
-            [battleship.core   :as core ]
-            [battleship.logic  :as logic]
-            [compojure.route   :as route]
-            [battleship.view   :as view]))
+  (:require [compojure.handler    :as handler]
+            [compojure.core       :refer :all]
+            [ring.middleware.json :refer :all]
+            [ring.util.response   :refer :all]
+            [battleship.core      :as core ]
+            [battleship.logic     :as logic]
+            [compojure.route      :as route]
+            [battleship.view      :as view]))
 
 
 (def games (atom {}))

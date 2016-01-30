@@ -1,6 +1,6 @@
 (ns battleship.logic
   "This package contains the battleship's game logic."
-  (:use battleship.core))
+  (:require [battleship.core :refer :all]))
 
 (def default-size 5)
 
