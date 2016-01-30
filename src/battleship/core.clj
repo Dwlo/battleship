@@ -1,42 +1,38 @@
 (ns battleship.core
   "This package contains basic and elementary functions of the battleship game."
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:import  (java.lang Math)))
 
+(defn battlefield-length
+  [battlefield]
+  (int (Math/sqrt (count battlefield))))
 
-(def matrix-row 5)
-(def true-period 5)
+(defn locate-cell
+  "Locates a cell index based on a row and a column."
+  [row col matrix-length]
+  (+ col (* matrix-length row)))
 
-(defn compute-index
-  "Computes a cell index based on a row and a column. "
-  [row col]
-  (+ col (* matrix-row row)))
-
-(defn get-cell
-  "Retrieves a cell from a battlefield."
+(defn select-cell
+  "Selects a given cell from a battlefield."
   [row col battlefield]
-  (battlefield (compute-index row col)))
+  (battlefield (locate-cell row col (battlefield-length battlefield))))
 
-(defn random-bool
-  "Generate a boolean based on the following frequency: 1/5 for a true and 4/5 for a false."
-  [period]
-  (= (rand-int (+ period 1)) 0))
-
-(defn init-cell
+(defn initialize-cell
   "Initialize a cell.
    Ex: {:has-enemy? true|false :shot-by :none}"
   []
-  {:has-enemy? (random-bool true-period) :shot-by :none})
+  {:has-enemy? #(= (rand-int 5) 0) :shot-by :none})
 
-(defn generate-game
-  "Generates 5x5 matrix game.
+(defn initialize-battlefield
+  "Generates nxn matrix game.
    Each cell of this matrix looks like this: {:has-enemy? true|false :shot-by :none}"
-  []
-  (into [] (repeatedly (* matrix-row matrix-row) init-cell)))
+  [matrix-length]
+  (into [] (repeatedly (* matrix-length matrix-length) initialize-cell)))
 
 (defn found-enemy?
   "Predicate that tells if there is an enemy at a given location."
   [row col battlefield]
-  (let [cell (get-cell row col battlefield)]
+  (let [cell (select-cell row col battlefield)]
     (and (:has-enemy? cell) (= :none (:shot-by cell)))))
 
 (defn score

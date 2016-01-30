@@ -41,9 +41,9 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by "player1"}])]
-    (testing "5x5 matrice: Shoot enemy in cell: row=2 col=1"
+    (testing "nxn matrice: Shoot enemy in cell: row=2 col=1"
       (let [actual (shoot-enemy 2 1 "plx" battlefield)]
-        (is (= (:shot-by (core/get-cell 2 1 actual)) "plx" ))))))
+        (is (= (:shot-by (core/select-cell 2 1 actual)) "plx" ))))))
 
 (deftest test-attempt-attack
   (let [battlefield (atom [{:has-enemy? true  :shot-by "player1"}
@@ -71,15 +71,15 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by "player1"}])]
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=0"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=0"
       (let [actual (attempt-attack 0 0 "plx" battlefield)]
         (is (= actual :failure))))
 
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=1"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=1"
       (let [actual (attempt-attack 0 1 "plx" battlefield)]
         (is (= actual :failure))))
 
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=2"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=2"
       (let [actual (attempt-attack 0 2 "plx" battlefield)]
         (is (= actual :success))))))
 
@@ -109,19 +109,19 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by "player1"}])]
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=0"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=0"
       (let [actual (fire 0 0 "plx" battlefield)]
         (is (= actual {:fire-status :failure :game-status :running :score {"player1" 4 "player2" 3 "playerX2" 2}} ))))
 
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=1"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=1"
       (let [actual (fire 0 1 "plx" battlefield)]
         (is (= actual {:fire-status :failure :game-status :running :score {"player1" 4 "player2" 3 "playerX2" 2}}))))
 
-    (testing "5x5 matrice: Fire on enemy located at row=0 col=2"
+    (testing "nxn matrice: Fire on enemy located at row=0 col=2"
       (let [actual (fire 0 2 "plx" battlefield)]
         (is (= actual {:fire-status :success :game-status :running :score {"player1" 4 "player2" 3 "playerX2" 2 "plx" 1}}))))
 
-    (testing "5x5 matrice: Fire on enemy located at row=4 col=0"
+    (testing "nxn matrice: Fire on enemy located at row=4 col=0"
       (let [actual (fire 4 0 "plx" battlefield)]
         (is (= actual {:fire-status :success :game-status :over :score {"player1" 4 "player2" 3 "playerX2" 2 "plx" 2}}))))))
 
@@ -132,7 +132,7 @@
       (is (false? (.isEmpty actual))))))
 
 (deftest test-show-context
-  (testing "5x5 matrices: 2 games context"
+  (testing "nxn matrices: 2 games context"
     (let [actual (get-games-info (atom {"game-id1" (atom [{:has-enemy? true  :shot-by "player1"}
                                                                {:has-enemy? false :shot-by :none}
                                                                {:has-enemy? true  :shot-by :none}
@@ -189,7 +189,7 @@
       (is (= (nth actual 1) {"game-id2" {"pl3" 1 "pl1" 2 :status :over}})))))
 
 (deftest test-terminated-gamnes
-  (testing "5x5 matrices: 3 games context, 1 running and 2 terminated"
+  (testing "nxn matrices: 3 games context, 1 running and 2 terminated"
     (let [actual (terminated-games (atom {"game-id1" (atom [{:has-enemy? true  :shot-by "player1"}
                                                             {:has-enemy? false :shot-by :none}
                                                             {:has-enemy? true  :shot-by :none}
@@ -271,7 +271,7 @@
       (is (= actual  ["game-id2" "game-id3"])))))
 
 (deftest test-clean-up
-  (testing "5x5 matrices: 3 games context, 1 running and 2 terminated"
+  (testing "nxn matrices: 3 games context, 1 running and 2 terminated"
     (let [actual (clean-up (atom { "game-id1" (atom [{:has-enemy? true  :shot-by "player1"}
                                                {:has-enemy? false :shot-by :none}
                                                {:has-enemy? true  :shot-by :none}
@@ -378,7 +378,7 @@
                                      {:has-enemy? true  :shot-by "player1"}])))))
 
 (deftest test-get-game-stats
-  (testing "5x5 matrices: battlefield"
+  (testing "nxn matrices: battlefield"
     (let [actual (get-game-stats [{:has-enemy? true  :shot-by "player1"}
                                     {:has-enemy? false :shot-by :none}
                                     {:has-enemy? true  :shot-by :none}

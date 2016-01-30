@@ -2,6 +2,7 @@
   "This package contains the battleship's game logic."
   (:use battleship.core))
 
+(def default-size 5)
 
 (defn generate-game-id
   "Generates an random game identifier."
@@ -12,13 +13,13 @@
   "Registers a new game into the global context."
   [games]
   (let [game-id (generate-game-id)]
-    (swap! games assoc game-id (atom (generate-game)))
+    (swap! games assoc game-id (atom (initialize-battlefield default-size)))
     game-id))
 
 (defn shoot-enemy
   "Marks a cell as shot with the name of the player."
   [row col player game]
-  (swap! game update-in [(compute-index row col) :shot-by] (fn [x] player )))
+  (swap! game update-in [(locate-cell row col (battlefield-length @game)) :shot-by] (fn [x] player )))
 
 (defn attempt-attack
   "A player attempt to shoot an enemy.
