@@ -1,4 +1,4 @@
-(ns battleship.test.handler
+(ns battleship.test.handler-test
   (:use clojure.test
         ring.mock.request
         battleship.handler))
