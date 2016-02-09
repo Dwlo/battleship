@@ -1,4 +1,4 @@
-(ns battleship.handler
+(ns battleship.web-handler
   "This package contains the REST API and the server instance of battleship game."
   (:require [compojure.handler       :as    handler]
             [compojure.core          :refer :all]

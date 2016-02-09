@@ -1,7 +1,7 @@
-(ns battleship.test.handler-test
-  (:use clojure.test
-        ring.mock.request
-        battleship.handler))
+(ns battleship.test.web-handler-test
+  (:require [battleship.web-handler :refer :all]
+            [clojure.test :refer :all]
+            [ring.mock.request :refer :all]))
 
 (deftest test-app
   (testing "main route"

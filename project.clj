@@ -7,7 +7,7 @@
                  [hiccup                    "1.0.4"]
                  [javax.servlet/servlet-api "2.5"]]
   :plugins [[lein-ring "0.8.11"]]
-  :ring {:handler battleship.handler/app}
+  :ring {:handler battleship.web-handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})
