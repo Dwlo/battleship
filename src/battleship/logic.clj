@@ -1,6 +1,7 @@
-(ns battleship.logic
+(ns ^{:doc "This package contains the battleship's game logic."}
+  battleship.logic
   "This package contains the battleship's game logic."
-  (:require [battleship.core :refer :all]))
+  (:require [battleship.battlefield :refer :all]))
 
 (defn create-game
   "Creates a new Battlefield game"
@@ -32,13 +33,13 @@
 (defn get-game-stats
   "Retrieves a game statisticsx"
   [game]
-;;  To be continued from here
+  ;;  To be continued from here
   ())
 
 (defn show-battlefield
   [battlefield]
   (battlefield-string battlefield))
 
-(defn show-enemiesX
+(defn show-enemies
   [battlefield]
-  (show-enemies battlefield))
+  (show-enemies-in-battlefield battlefield))

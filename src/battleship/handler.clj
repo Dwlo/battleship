@@ -1,6 +1,6 @@
 (ns battleship.handler
   "This package contains the REST API and the server instance of battleship game."
-  (:require [compojure.handler       :as handler]
+  (:require [compojure.handler       :as    handler]
             [compojure.core          :refer :all]
             [ring.middleware.json    :refer :all]
             [ring.util.response      :refer :all]
@@ -28,7 +28,7 @@
   (GET "/games/:game-id/battlefield" [game-id] (response (log/show-battlefield (gm/lookup-game game-id))))
 
   ;; --- Retrieves the full battlefield data for the given game id.
-  (GET "/games/:game-id/show-enemies" [game-id] (response (log/show-enemiesX (gm/lookup-game game-id))))
+  (GET "/games/:game-id/show-enemies" [game-id] (response (log/show-enemies (gm/lookup-game game-id))))
 
   ;; --- Registers a new game to the all games context.
   (POST "/games" [] (response {:game-id (gm/register-new-game (log/create-game 5))}))

@@ -1,6 +1,6 @@
 (ns battleship.test.core-test
-  (:use clojure.test
-        battleship.core))
+  (:require [battleship.battlefield :refer :all]
+            [clojure.test :refer :all]))
 
 (deftest test-battlefield-length
   (testing "battlefield length"
@@ -86,7 +86,7 @@
       (let [actual (battlefield-string battlefield)]
         (is (= actual "player1|-|-|-|player1\nplayer2|player2|player2|-|-\n-|-|-|-|-\n-|-|playerX|playerX2|playerX2\n-|-|-|-|player1"))))))
 
-(deftest test-show-enemies
+(deftest test-show-enemies-in-battlefield
   (let [battlefield [{:has-enemy? true  :shot-by "player1"}
                      {:has-enemy? false :shot-by :none}
                      {:has-enemy? true  :shot-by :none}
@@ -113,5 +113,5 @@
                      {:has-enemy? false :shot-by :none}
                      {:has-enemy? true  :shot-by "player1"}]]
     (testing "nxn matrice: draw ."
-      (let [actual (show-enemies battlefield)]
+      (let [actual (show-enemies-in-battlefield battlefield)]
         (is (= actual "E|-|E|-|E\nE|E|E|-|-\n-|E|E|-|-\nE|-|E|E|E\nE|-|-|-|E"))))))

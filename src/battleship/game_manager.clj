@@ -1,7 +1,10 @@
-(ns battleship.game-manager
+(ns ^{:doc "This namespace is dedicated to functions related with game management
+not the game logic itself"}
+  battleship.game-manager
   "This namespace is dedicated to functions related with game management, not the game logic itself"
-  (:require [battleship.core  :as c]
-            [battleship.logic :as l]))
+  (:require [battleship
+             [battlefield :as c]
+             [logic :as l]]))
 
 (def default-size 5)
 (def games (atom {}))

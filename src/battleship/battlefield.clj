@@ -1,12 +1,5 @@
-(ns battleship.core
+(ns battleship.battlefield
   "This package contains basic and elementary functions of the battleship game."
-  ;;
-  ;;
-  ;;
-  ;; NB: this namespace must be renamed battlefield
-  ;;
-  ;;
-  ;;
   (:require [clojure.string :as str])
   (:import  (java.lang Math)))
 
@@ -45,7 +38,7 @@
        (map (fn [names] (str/join "|" names)))
        (str/join "\n")))
 
-(defn show-enemies
+(defn show-enemies-in-battlefield
   "Shows the location of all enemies"
   [battlefield]
   (->> battlefield

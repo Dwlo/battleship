@@ -1,8 +1,8 @@
 (ns battleship.test.logic-test
-  (:require [battleship.core :as core])
-  (:use clojure.test
-        battleship.logic))
-
+  (:require [battleship
+             [battlefield :as core]
+             [logic :refer :all]]
+            [clojure.test :refer :all]))
 
 (deftest test-found-enemy?
   (let [battlefield [{:has-enemy? true :shot-by "playerX"} :b {:has-enemy? false :shot-by :none} :d :e :f :g :h :i :j :k {:has-enemy? true :shot-by :none} :m :n :o :p :q :r :s :t :u :v :w :x :y]]
