@@ -7,29 +7,22 @@
   [size]
   (initialize-battlefield size))
 
-(defn shoot-enemy
-  "Marks a cell as shot with the name of the player."
-  [row col player game]
-  (swap! game update-in [(locate-cell row col (battlefield-length @game)) :shot-by] (fn [x] player )))
-
 (defn found-enemy?
   "Predicate that tells if there is an enemy at a given location."
   [row col battlefield]
-  (let [cell (select-cell row col @battlefield)]
+  (let [cell (select-cell row col battlefield)]
     (and (:has-enemy? cell) (= :none (:shot-by cell)))))
 
 (defn attack
   "A player attempt to shoot an enemy.
    If an enemy is shot the fun returns :success otherwise :failure"
   [row col player game]
-  (if (found-enemy? row col game)
-    (do (shoot-enemy row col player game) :success)
-    :failure))
+  (if (found-enemy? row col game) :success :failure))
 
-;; (defn score
-;;   "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
-;;   [battlefield]
-;;   (frequencies (for [cell battlefield :when (not= (:shot-by cell) :none)] (:shot-by cell))))
+(defn score
+  "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
+  [battlefield]
+  (frequencies (for [cell battlefield :when (not= (:shot-by cell) :none)] (:shot-by cell))))
 
 (defn is-game-over?
   "Checks whether of not there is an enemy left."
