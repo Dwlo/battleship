@@ -20,7 +20,7 @@
   [row col player game]
   (if (found-enemy? row col game) :success :failure))
 
-(defn score
+(defn get-score
   "Computes the score of all players. ex: {'player1' 5 'player2' 1}"
   [battlefield]
   (frequencies (for [cell battlefield :when (not= (:shot-by cell) :none)] (:shot-by cell))))
@@ -30,15 +30,9 @@
   [battlefield]
   (not (some #(= {:has-enemy? true :shot-by :none} %)  battlefield)))
 
-(defn get-game-stats
-  "Retrieves a game statisticsx"
-  [game]
-  ;;  To be continued from here
-  ())
-
 (defn show-battlefield
   [battlefield]
-  (battlefield-string battlefield))
+  (show-battlefield-status battlefield))
 
 (defn show-enemies
   [battlefield]

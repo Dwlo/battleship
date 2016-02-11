@@ -1,4 +1,4 @@
-(ns battleship.test.core-test
+(ns battleship.test.battlefield-test
   (:require [battleship.battlefield :refer :all]
             [clojure.test :refer :all]))
 
@@ -83,7 +83,7 @@
                      {:has-enemy? false :shot-by :none}
                      {:has-enemy? true  :shot-by "player1"}]]
     (testing "nxn matrice: draw ."
-      (let [actual (battlefield-string battlefield)]
+      (let [actual (show-battlefield-status battlefield)]
         (is (= actual "player1|-|-|-|player1\nplayer2|player2|player2|-|-\n-|-|-|-|-\n-|-|playerX|playerX2|playerX2\n-|-|-|-|player1"))))))
 
 (deftest test-show-enemies-in-battlefield

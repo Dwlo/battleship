@@ -47,7 +47,7 @@
   ;; --- Retrieves game info about a game
   (GET "/games/:game-id/stats" [game-id]
        (if-let [game (mgr/lookup-game game-id)]
-         (response {:score  (log/get-game-stats game-id)
+         (response {:score  (log/get-score game)
                     :status ({true :over false :running} (log/is-game-over? game))})
          (not-found {:error (str "No game found with the given id: " game-id)})))
 

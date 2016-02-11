@@ -22,3 +22,4 @@ do
 done
 
 curl -s "${BATTLESHIP_URL}/games/${GAME_ID}/battlefield"
+echo -e "\n\nGAME-ID is ${GAME_ID}"

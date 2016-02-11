@@ -29,7 +29,7 @@
   [matrix-length]
   (into [] (repeatedly (* matrix-length matrix-length) initialize-cell)))
 
-(defn battlefield-string
+(defn show-battlefield-status
   "Draws the battlefield with shot enemies."
   [battlefield]
   (->> battlefield
