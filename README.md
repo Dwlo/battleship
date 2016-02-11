@@ -56,7 +56,7 @@ To play this game you must know about:
 
 The Battleship game is based on a REST client-server architecture.
 The server side is already developed and hosts the game logic. It is available at this url:
-<http://battleship.dwlo.cloudbees.net>. So all your requests will address that server.
+<http://tobespecified>. So all your requests will address that server.
 
 ## The REST API
 
