@@ -1,3 +1,4 @@
+[![Build Status](http://151.80.42.2:9990/buildStatus/icon?job=Battleship)](http://151.80.42.2:9990/job/Battleship/)  
     
     ______       _   _   _           _     _
     | ___ \     | | | | | |         | |   (_)
