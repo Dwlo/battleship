@@ -17,7 +17,7 @@ for r in {0..4}
 do
     for c in {0..4}
     do
-        curl -s -X PUT "http://localhost:3000/games/${GAME_ID}/players/${PLAYER}/fire?row=${r}&col=${c}"
+        curl -s -X PUT "${BATTLESHIP_URL}/games/${GAME_ID}/players/${PLAYER}/fire?row=${r}&col=${c}"
     done
 done
 
