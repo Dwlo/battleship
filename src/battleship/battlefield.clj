@@ -3,6 +3,8 @@
   (:require [clojure.string :as str])
   (:import  (java.lang Math)))
 
+(def enemy-period 5)
+
 (defn battlefield-length
   [battlefield]
   (int (Math/sqrt (count battlefield))))
@@ -21,7 +23,7 @@
   "Initialize a cell.
    Ex: {:has-enemy? true|false :shot-by :none}"
   []
-  {:has-enemy? (= (rand-int 5) 0) :shot-by :none})
+  {:has-enemy? (= (rand-int enemy-period) 0) :shot-by :none})
 
 (defn initialize-battlefield
   "Generates nxn matrix game.
@@ -34,7 +36,7 @@
   [battlefield]
   (->> battlefield
        (map (comp (fn [shot-by] (if (= shot-by :none) "-" shot-by)) :shot-by))
-       (partition 5)
+       (partition (battlefield-length battlefield))
        (map (fn [names] (str/join "|" names)))
        (str/join "\n")))
 
@@ -43,6 +45,6 @@
   [battlefield]
   (->> battlefield
        (map (comp (fn [has-enemy] (if has-enemy "E" "-")) :has-enemy?))
-       (partition 5)
+       (partition (battlefield-length battlefield))
        (map (fn [status] (str/join "|" status)))
        (str/join "\n")))

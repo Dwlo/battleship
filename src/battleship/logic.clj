@@ -1,5 +1,4 @@
-(ns ^{:doc "This package contains the battleship's game logic."}
-  battleship.logic
+(ns battleship.logic
   "This package contains the battleship's game logic."
   (:require [battleship.battlefield :refer :all]))
 
@@ -37,3 +36,10 @@
 (defn show-enemies
   [battlefield]
   (show-enemies-in-battlefield battlefield))
+
+(defn describe-game
+  "Gives a description of the current game"
+  [battlefield]
+  {:size  (battlefield-length battlefield)
+   :score (get-score battlefield)
+   :live  (not (is-game-over? battlefield))})

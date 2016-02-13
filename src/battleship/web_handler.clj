@@ -31,7 +31,8 @@
   (GET "/games/:game-id/show-enemies" [game-id] (response (log/show-enemies (mgr/lookup-game game-id))))
 
   ;; --- Registers a new game to the all games context.
-  (POST "/games" [] (response {:game-id (mgr/register-new-game (log/create-game 5))}))
+  (POST "/games" {{size :size} :params}
+        (response {:game-id (mgr/register-new-game (log/create-game (read-string size)))}))
 
   ;;  --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/fire" {{row :row col :col player :player game-id :game-id} :params}
@@ -45,10 +46,9 @@
          (not-found {:error (str "No game found with the given id: " game-id)})))
 
   ;; --- Retrieves game info about a game
-  (GET "/games/:game-id/stats" [game-id]
+  (GET "/games/:game-id/describe" [game-id]
        (if-let [game (mgr/lookup-game game-id)]
-         (response {:score  (log/get-score game)
-                    :status ({true :over false :running} (log/is-game-over? game))})
+         (response (log/describe-game game))
          (not-found {:error (str "No game found with the given id: " game-id)})))
 
   ;;;;; Others

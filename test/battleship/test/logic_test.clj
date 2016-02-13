@@ -137,3 +137,28 @@
                            {:has-enemy? false :shot-by :none}
                            {:has-enemy? true  :shot-by :none}])]
         (is (= actual {}))))))
+
+(deftest test-describe-game
+  (testing "The game is not over."
+    (let [actual (describe-game [{:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? true  :shot-by :none}])]
+      (is (= actual {:size 2, :score {"player1" 2}, :live true}))))
+
+  (testing "The game is not over."
+    (let [actual (describe-game [{:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}
+                                 {:has-enemy? true  :shot-by :none}])]
+      (is (= actual {:size 2, :score {}, :live true}))))
+
+  (testing "The game is over."
+    (let [actual (describe-game [{:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? false :shot-by :none}
+                                 {:has-enemy? true  :shot-by "player-101"}
+                                 {:has-enemy? true  :shot-by "player1"}
+                                 {:has-enemy? true  :shot-by "player-X"}])]
+      (is (= actual {:size 2, :score {"player1" 2, "player-101" 1, "player-X" 1}, :live false})))))
