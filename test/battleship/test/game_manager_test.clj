@@ -11,8 +11,8 @@
 
 (deftest test-register-new-game
   (testing "Adding new game into empty global game context"
-    (let [actual-gid1 (register-new-game [{:a :b}])
-          actual-gid2 (register-new-game [{:a :b}])]
+    (let [actual-gid1 (register-new-game [{:a :b}] [])
+          actual-gid2 (register-new-game [{:a :b}] [])]
       (is (not= actual-gid1 nil))
       (is (not= actual-gid2 nil))
       (is (not= actual-gid1 actual-gid2)))))
