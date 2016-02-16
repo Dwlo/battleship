@@ -15,19 +15,19 @@
 (defn lookup-game
   "Extracts a game context from the context of games."
   [game-id]
-  (deref (@games game-id)))
+  (deref (:battlefield (@games game-id))))
 
 (defn register-new-game
   "Registers a new game into the global context."
   [game]
   (let [game-id (generate-game-id)]
-    (swap! games assoc game-id (atom game))
+    (swap! games assoc game-id {:battlefield (atom game)})
     game-id))
 
 (defn update-game
   "Updates the battlefield after a successful shot"
   [row col player game-id]
-  (let [game (@games game-id)]
+  (let [game (:battlefield (@games game-id))]
     (swap! game update-in [(c/locate-cell row col (c/battlefield-length @game)) :shot-by] (fn [x] player ))))
 
 (defn get-games-info
@@ -39,7 +39,7 @@
   "Returns all the games in a over state"
   [games]
   (for [ctx @games
-        :let  [game-id (key ctx) bf @(val ctx)]
+        :let  [game-id (key ctx) bf @(:battlefield (val ctx))]
         :when (l/is-game-over? bf)]
     game-id))
 
