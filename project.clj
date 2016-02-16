@@ -5,7 +5,8 @@
                  [compojure                 "1.1.8"]
                  [ring/ring-json            "0.3.1"]
                  [hiccup                    "1.0.4"]
-                 [javax.servlet/servlet-api "2.5"]]
+                 [javax.servlet/servlet-api "2.5"]
+                 [clj-time                  "0.11.0"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler battleship.web-handler/app}
   :profiles

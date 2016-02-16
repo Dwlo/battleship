@@ -32,7 +32,7 @@
 
   ;; --- Registers a new game to the all games context.
   (POST "/games" {{size :size} :params}
-        (response {:game-id (mgr/register-new-game (log/create-game (read-string size)))}))
+        (response {:game-id (mgr/register-new-game (log/create-game (read-string size)) [])}))
 
   ;;  --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/fire" {{row :row col :col player :player game-id :game-id} :params}

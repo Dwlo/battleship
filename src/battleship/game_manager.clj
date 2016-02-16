@@ -2,7 +2,8 @@
   "This namespace is dedicated to functions related with game management, not the game logic itself"
   (:require [battleship
              [battlefield :as c]
-             [logic       :as l]]))
+             [logic       :as l]]
+            [clj-time.local :as t]))
 
 (def default-size 5)
 (def games (atom {}))
@@ -19,9 +20,12 @@
 
 (defn register-new-game
   "Registers a new game into the global context."
-  [game]
+  [game players]
   (let [game-id (generate-game-id)]
-    (swap! games assoc game-id {:battlefield (atom game)})
+    (swap! games assoc game-id {:battlefield       (atom game)
+                                :creation-date     (t/local-now)
+                                :next-player-index (atom 0)
+                                :players           players})
     game-id))
 
 (defn update-game
