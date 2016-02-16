@@ -13,15 +13,15 @@ get_game_id() {
 
 get_game_id
 
+echo ""
+
 for r in $(seq 0 $(($GAME_SIZE-1)))
 do
     for c in $(seq 0 $(($GAME_SIZE-1)))
     do
         curl -s -X PUT "${BATTLESHIP_URL}/games/${GAME_ID}/players/${PLAYER}/fire?row=${r}&col=${c}"
     done
-done
-
-echo -e "\n\n"
+done > /dev/null
 
 curl -s "${BATTLESHIP_URL}/games/${GAME_ID}/battlefield"
 echo -e "\n\nGAME-ID is ${GAME_ID}"
