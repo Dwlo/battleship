@@ -1,7 +1,6 @@
-(ns battleship.test.game-manager-test
-  (:require [battleship.game-manager :refer :all]
-            [clojure.test            :refer :all]))
-
+(ns battleship.test.game-center-test
+  (:require [battleship.game-center :refer :all]
+            [clojure.test :refer :all]))
 
 (deftest test-generate-game-id
   (testing "Generates a random identifier."

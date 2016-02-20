@@ -1,13 +1,15 @@
 (ns battleship.web-handler
   "This package contains the REST API and the server instance of battleship game."
-  (:require [compojure.handler       :as    handler]
-            [compojure.core          :refer :all]
-            [ring.middleware.json    :refer :all]
-            [ring.util.response      :refer :all]
-            [battleship.game-manager :as    mgr]
-            [battleship.logic        :as    log]
-            [compojure.route         :as    route]
-            [battleship.view         :as    view]))
+  (:require [battleship
+             [game-center :as mgr]
+             [logic :as log]
+             [view :as view]]
+            [compojure
+             [core :refer :all]
+             [handler :as handler]
+             [route :as route]]
+            [ring.middleware.json :refer :all]
+            [ring.util.response :refer :all]))
 
 (defroutes app-routes
   ;;;;; Public APIs  ;;;;;

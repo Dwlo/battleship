@@ -1,4 +1,4 @@
-(ns battleship.game-manager
+(ns battleship.game-center
   "This namespace is dedicated to functions related with game management, not the game logic itself"
   (:require [battleship
              [battlefield :as c]
