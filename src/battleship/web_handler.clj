@@ -28,6 +28,7 @@
   (GET "/games/:game-id/battlefield" [game-id] (response (log/show-battlefield (mgr/lookup-game game-id))))
 
   ;; --- Retrieves the full battlefield data for the given game id.
+  ;; To be removed: only for debug purpose
   (GET "/games/:game-id/show-enemies" [game-id] (response (log/show-enemies (mgr/lookup-game game-id))))
 
   ;; --- Registers a new game to the all games context.
@@ -45,7 +46,7 @@
            (response {:shot-result attack-result}))
          (not-found {:error (str "No game found with the given id: " game-id)})))
 
-  ;; --- Retrieves game info about a game
+  ;; --- Descibes game
   (GET "/games/:game-id/describe" [game-id]
        (if-let [game (mgr/lookup-game game-id)]
          (response (log/describe-game game))

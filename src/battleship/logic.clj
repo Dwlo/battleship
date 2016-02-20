@@ -40,6 +40,7 @@
 (defn describe-game
   "Gives a description of the current game"
   [battlefield]
-  {:size  (battlefield-length battlefield)
-   :score (get-score battlefield)
-   :live  (not (is-game-over? battlefield))})
+  {:size        (battlefield-length battlefield)
+   :score       (get-score battlefield)
+   :live        (not (is-game-over? battlefield))
+   :battlefield (describe-battlefield battlefield)})

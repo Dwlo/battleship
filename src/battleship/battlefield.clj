@@ -48,3 +48,13 @@
        (partition (battlefield-length battlefield))
        (map (fn [status] (str/join "|" status)))
        (str/join "\n")))
+
+
+(defn describe-battlefield
+  [battlefield]
+  (let [size (battlefield-length battlefield)]
+    (for [row (range size)
+          col (range size)]
+      (-> (nth battlefield (+ (* size  row) col))
+          (select-keys [:shot-by])
+          (assoc :row row :col col)))))

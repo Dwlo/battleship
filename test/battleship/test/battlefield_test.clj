@@ -115,3 +115,57 @@
     (testing "nxn matrice: draw ."
       (let [actual (show-enemies-in-battlefield battlefield)]
         (is (= actual "E|-|E|-|E\nE|E|E|-|-\n-|E|E|-|-\nE|-|E|E|E\nE|-|-|-|E"))))))
+
+(deftest test-describe-battlefield
+  (let [battlefield [{:has-enemy? true  :shot-by "player1"}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "player1"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? true  :shot-by "player2"}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "playerX"}
+                     {:has-enemy? true  :shot-by "playerX2"}
+                     {:has-enemy? true  :shot-by "playerX2"}
+                     {:has-enemy? true  :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? false :shot-by :none}
+                     {:has-enemy? true  :shot-by "player1"}]]
+    (testing "testing description"
+      (let [actual (describe-battlefield battlefield)]
+        (is (= actual [{:row 0 :col 0 :shot-by "player1"}
+                       {:row 0 :col 1 :shot-by :none}
+                       {:row 0 :col 2 :shot-by :none}
+                       {:row 0 :col 3 :shot-by :none}
+                       {:row 0 :col 4 :shot-by "player1"}
+                       {:row 1 :col 0 :shot-by "player2"}
+                       {:row 1 :col 1 :shot-by "player2"}
+                       {:row 1 :col 2 :shot-by "player2"}
+                       {:row 1 :col 3 :shot-by :none}
+                       {:row 1 :col 4 :shot-by :none}
+                       {:row 2 :col 0 :shot-by :none}
+                       {:row 2 :col 1 :shot-by :none}
+                       {:row 2 :col 2 :shot-by :none}
+                       {:row 2 :col 3 :shot-by :none}
+                       {:row 2 :col 4 :shot-by :none}
+                       {:row 3 :col 0 :shot-by :none}
+                       {:row 3 :col 1 :shot-by :none}
+                       {:row 3 :col 2 :shot-by "playerX"}
+                       {:row 3 :col 3 :shot-by "playerX2"}
+                       {:row 3 :col 4 :shot-by "playerX2"}
+                       {:row 4 :col 0 :shot-by :none}
+                       {:row 4 :col 1 :shot-by :none}
+                       {:row 4 :col 2 :shot-by :none}
+                       {:row 4 :col 3 :shot-by :none}
+                       {:row 4 :col 4 :shot-by "player1"}]))))))

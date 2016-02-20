@@ -142,23 +142,38 @@
   (testing "The game is not over."
     (let [actual (describe-game [{:has-enemy? true  :shot-by "player1"}
                                  {:has-enemy? false :shot-by :none}
-                                 {:has-enemy? true  :shot-by :none}
                                  {:has-enemy? true  :shot-by "player1"}
                                  {:has-enemy? true  :shot-by :none}])]
-      (is (= actual {:size 2, :score {"player1" 2}, :live true}))))
+      (is (= actual {:size 2
+                     :score {"player1" 2}
+                     :live true
+                     :battlefield [{:row 0 :col 0 :shot-by "player1"}
+                                   {:row 0 :col 1 :shot-by :none}
+                                   {:row 1 :col 0 :shot-by "player1"}
+                                   {:row 1 :col 1 :shot-by :none}]}))))
 
   (testing "The game is not over."
     (let [actual (describe-game [{:has-enemy? true  :shot-by :none}
-                                 {:has-enemy? false :shot-by :none}
                                  {:has-enemy? true  :shot-by :none}
                                  {:has-enemy? true  :shot-by :none}
                                  {:has-enemy? true  :shot-by :none}])]
-      (is (= actual {:size 2, :score {}, :live true}))))
+      (is (= actual {:size 2
+                     :score {}
+                     :live true
+                     :battlefield [{:row 0 :col 0 :shot-by :none}
+                                   {:row 0 :col 1 :shot-by :none}
+                                   {:row 1 :col 0 :shot-by :none}
+                                   {:row 1 :col 1 :shot-by :none}]}))))
 
   (testing "The game is over."
     (let [actual (describe-game [{:has-enemy? true  :shot-by "player1"}
-                                 {:has-enemy? false :shot-by :none}
                                  {:has-enemy? true  :shot-by "player-101"}
                                  {:has-enemy? true  :shot-by "player1"}
                                  {:has-enemy? true  :shot-by "player-X"}])]
-      (is (= actual {:size 2, :score {"player1" 2, "player-101" 1, "player-X" 1}, :live false})))))
+      (is (= actual {:size 2
+                     :score {"player1" 2 "player-101" 1 "player-X" 1}
+                     :live false
+                     :battlefield [{:row 0 :col 0 :shot-by "player1"}
+                                   {:row 0 :col 1 :shot-by "player-101"}
+                                   {:row 1 :col 0 :shot-by "player1"}
+                                   {:row 1 :col 1 :shot-by "player-X"}]})))))
