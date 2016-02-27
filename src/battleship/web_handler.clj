@@ -16,10 +16,9 @@
   ;; --- The index page.
   (GET "/" [] (view/index-page))
 
-
   ;;;;; Admin APIs  ;;;;;
   ;; --- Getting infos about all games.
-  (GET "/admin/info" [] (response {:total-games (mgr/get-games-info)}))
+  (GET "/game-center/status" [] (response (mgr/describe (deref mgr/games))))
 
   ;; --- Cleans up the finished games from the 'all games context'.
   (DELETE "/admin/gc" [] (do (mgr/clean-up) (response {:clean-up :done})))

@@ -97,3 +97,87 @@
                                                                           {:has-enemy? false :shot-by :none}])}}))]
       (is (= (count actual) 2))
       (is (= actual  ["game-id2" "game-id3"])))))
+
+
+(deftest test-describe
+  (testing "nxn matrices: 3 games context, 1 running and 2 terminated"
+    (let [actual (describe {"game-id1" {:battlefield (atom [{:has-enemy? true  :shot-by "player1"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "player1"}
+                                                            {:has-enemy? true  :shot-by "player2"}
+                                                            {:has-enemy? true  :shot-by "player2"}
+                                                            {:has-enemy? true  :shot-by "player2"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "playerX"}
+                                                            {:has-enemy? true  :shot-by "playerX2"}
+                                                            {:has-enemy? true  :shot-by "playerX2"}
+                                                            {:has-enemy? true  :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "player1"}])}
+
+                            "game-id2" {:battlefield (atom [{:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl3"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl1"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl1"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}])}
+
+                            "game-id3" {:battlefield (atom [{:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl3"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl1"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? true  :shot-by "pl1"}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}
+                                                            {:has-enemy? false :shot-by :none}])}})]
+      (is (= actual {:total-games 3
+                     :live-games  {:count    1
+                                   :game-ids ["game-id1"]}})))))

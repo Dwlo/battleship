@@ -1,8 +1,8 @@
 (ns battleship.game-center
   "This namespace is dedicated to functions related with game management, not the game logic itself"
   (:require [battleship
-             [battlefield :as c]
-             [logic       :as l]]
+             [battlefield   :as c]
+             [logic         :as l]]
             [clj-time.local :as t]))
 
 (def default-size 5)
@@ -34,11 +34,6 @@
   (let [game (:battlefield (@games game-id))]
     (swap! game update-in [(c/locate-cell row col (c/battlefield-length @game)) :shot-by] (fn [x] player ))))
 
-(defn get-games-info
-  "Retrieves the informations about all games."
-  []
-  (count @games))
-
 (defn terminated-games
   "Returns all the games in a over state"
   [games]
@@ -51,3 +46,11 @@
   "Releases the terminated games memory."
   []
   (swap! games #(apply dissoc % (terminated-games games))))
+
+(defn describe
+  "Describes the game center status"
+  [games]
+  (let [live-game-ids (keys (remove #(l/is-game-over? @(:battlefield (val %))) games))]
+   {:total-games (count games)
+    :live-games  {:count (count live-game-ids)
+                  :game-ids (or live-game-ids [])}}))
