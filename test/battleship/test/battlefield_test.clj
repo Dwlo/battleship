@@ -1,11 +1,11 @@
 (ns battleship.test.battlefield-test
   (:require [battleship.battlefield :refer :all]
-            [clojure.test :refer :all]))
+            [clojure.test           :refer :all]))
 
-(deftest test-battlefield-length
+(deftest test-length
   (testing "battlefield length"
     (let [battlefield [:a :b :c :d :e :f :g :h :i :j :k :l :m :n :o :p :q :r :s :t :u :v :w :x :y]
-          actual      (battlefield-length battlefield)]
+          actual      (length battlefield)]
       (is (= actual 5)))))
 
 

@@ -1,5 +1,5 @@
-(ns battleship.test.game-center-test
-  (:require [battleship.game-center :refer :all]
+(ns battleship.test.game-handler-test
+  (:require [battleship.game-handler :refer :all]
             [clojure.test :refer :all]))
 
 (deftest test-generate-game-id

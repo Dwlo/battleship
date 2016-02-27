@@ -1,7 +1,8 @@
-(ns battleship.web-handler
+(ns ^{:doc "This package contains the REST API and the server instance of battleship game."}
+  battleship.web-handler
   "This package contains the REST API and the server instance of battleship game."
   (:require [battleship
-             [game-center :as mgr]
+             [game-handler :as mgr]
              [logic :as log]
              [view :as view]]
             [compojure

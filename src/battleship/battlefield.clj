@@ -5,7 +5,7 @@
 
 (def enemy-period 5)
 
-(defn battlefield-length
+(defn length
   [battlefield]
   (int (Math/sqrt (count battlefield))))
 
@@ -17,7 +17,7 @@
 (defn select-cell
   "Selects a given cell from a battlefield."
   [row col battlefield]
-  (nth battlefield (locate-cell row col (battlefield-length battlefield))))
+  (nth battlefield (locate-cell row col (length battlefield))))
 
 (defn initialize-cell
   "Initialize a cell.
@@ -36,7 +36,7 @@
   [battlefield]
   (->> battlefield
        (map (comp (fn [shot-by] (if (= shot-by :none) "-" shot-by)) :shot-by))
-       (partition (battlefield-length battlefield))
+       (partition (length battlefield))
        (map (fn [names] (str/join "|" names)))
        (str/join "\n")))
 
@@ -45,14 +45,14 @@
   [battlefield]
   (->> battlefield
        (map (comp (fn [has-enemy] (if has-enemy "E" "-")) :has-enemy?))
-       (partition (battlefield-length battlefield))
+       (partition (length battlefield))
        (map (fn [status] (str/join "|" status)))
        (str/join "\n")))
 
 
 (defn describe-battlefield
   [battlefield]
-  (let [size (battlefield-length battlefield)]
+  (let [size (length battlefield)]
     (for [row (range size)
           col (range size)]
       (-> (nth battlefield (+ (* size  row) col))
