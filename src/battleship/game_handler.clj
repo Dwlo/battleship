@@ -3,7 +3,6 @@
   (:require [battleship.battlefield :as battlefield]
             [clj-time.local         :as time]))
 
-(def default-size 5)
 (def games (atom {}))
 
 ;; Game management functions
