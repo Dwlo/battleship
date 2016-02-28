@@ -11,10 +11,19 @@
   []
   (str (java.util.UUID/randomUUID)))
 
+;; (and (:has-enemy? cell) (= :none (:shot-by cell)))
+
+(defn has-game-enemy?
+  "Whether or not a battlefield has enemies in it"
+  [battlefield]
+  (some #(and (:has-enemy? %) (= :none (:shot-by %))) battlefield))
+
 (defn new-game
   "Creates a new Battlefield game"
   [size]
-  (battlefield/initialize-battlefield size))
+  (->> (repeatedly #(battlefield/initialize-battlefield size))
+       (filter has-game-enemy?)
+       (first)))
 
 (defn lookup-game
   "Lookups a game context from the context of games"
