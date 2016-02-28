@@ -79,6 +79,11 @@
     :live-games  {:count (count live-game-ids)
                   :game-ids (or live-game-ids [])}}))
 
+(defn get-players
+  "List of players in game"
+  [game]
+  (:players game))
+
 (defn get-score
   "Computes players score"
   [game]
@@ -92,6 +97,7 @@
    {:score       (get-score game)
     :size        (battlefield/length battlefield)
     :live        (not (is-game-over? game))
+    :players     (get-players game)
     :battlefield (battlefield/describe-battlefield battlefield)}))
 
 ;; Play function

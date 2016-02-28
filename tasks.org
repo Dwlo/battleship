@@ -1,11 +1,11 @@
 #+STARTUP: indent
 
-* Next tasks [5/8]
+* Roadmap [6/8]
 
 - [X] Make clear separation between game and battlefield
 - [X] Implement game description
 - [X] Implement server description
-- [ ] Add players at the game creation time
+- [X] Add players at the game creation time
 - [ ] Implement playing strategy (round robin)
 - [ ] Update the README
 - [X] Rename game center to games handler

@@ -2,18 +2,19 @@
 
 . ./json-parser
 
-PLAYER="$1"
-GAME_SIZE="$2"
 BATTLESHIP_URL="http://localhost:3000"
 
 get_game_id() {
-    RESPONSE=$(curl -s -X POST "${BATTLESHIP_URL}/games?size=${GAME_SIZE}")
+    RESPONSE=$(curl -s -X POST -H "Content-type: application/json" -d @game-creation.json "${BATTLESHIP_URL}/games")
     GAME_ID=$(jsonElement "game-id" "${RESPONSE}")
 }
 
 get_game_id
 
 echo ""
+
+GAME_SIZE=3
+PLAYER="x"
 
 for r in $(seq 0 $(($GAME_SIZE-1)))
 do
