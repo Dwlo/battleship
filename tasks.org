@@ -1,8 +1,8 @@
 #+STARTUP: indent
 
-* Next tasks [3/8]
+* Next tasks [4/8]
 
-- [ ] Make clear separation between game and battlefield
+- [X] Make clear separation between game and battlefield
 - [X] Implement game description
 - [X] Implement server description
 - [ ] Add players at the game creation time
