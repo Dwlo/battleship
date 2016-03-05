@@ -40,9 +40,7 @@
   ;;  --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/fire" {{row :row col :col player :player game-id :game-id} :params}
        (if-let [game (game-handler/lookup-game game-id)]
-         (let [row'          (read-string row)
-               col'          (read-string col)
-               attack-result (game-handler/attack row' col' player game)]
+         (let [row' (read-string row) col' (read-string col) attack-result (game-handler/attack row' col' player game)]
            (when (= attack-result :success)
              (game-handler/update-battlefield row' col' player game-id))
            (response {:shot-result attack-result}))
