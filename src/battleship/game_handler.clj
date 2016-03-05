@@ -11,8 +11,6 @@
   []
   (str (java.util.UUID/randomUUID)))
 
-;; (and (:has-enemy? cell) (= :none (:shot-by cell)))
-
 (defn has-game-enemy?
   "Whether or not a battlefield has enemies in it"
   [battlefield]
