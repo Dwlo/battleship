@@ -13,16 +13,25 @@ get_game_id
 
 echo ""
 
-GAME_SIZE=3
+GAME_SIZE=5
 PLAYER="x"
 
 for r in $(seq 0 $(($GAME_SIZE-1)))
 do
     for c in $(seq 0 $(($GAME_SIZE-1)))
     do
-        curl -s -X PUT "${BATTLESHIP_URL}/games/${GAME_ID}/players/${PLAYER}/fire?row=${r}&col=${c}"
+        curl -X PUT "${BATTLESHIP_URL}/games/${GAME_ID}/players/${PLAYER}/fire?row=${r}&col=${c}"
+        if [ $PLAYER == "x" ]; then
+            PLAYER="y"
+        else
+            PLAYER="x"
+        fi
+        echo ''
     done
-done > /dev/null
+done
 
 curl -s "${BATTLESHIP_URL}/games/${GAME_ID}/battlefield"
-echo -e "\n\nGAME-ID is ${GAME_ID}"
+echo ''
+curl -s "${BATTLESHIP_URL}/games/${GAME_ID}/describe"
+echo ''
+echo -e "GAME-ID is ${GAME_ID}"

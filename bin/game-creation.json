@@ -1,11 +1,11 @@
 {
-    "size": 3,
+    "size": 5,
     "players": [
         {
-            "name": "P1"
+            "name": "x"
         },
         {
-            "name": "P2"
+            "name": "y"
         }
     ]
 }
