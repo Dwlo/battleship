@@ -40,21 +40,45 @@
         battlefield (new-game length)]
     (swap! games assoc game-id {:battlefield       (atom battlefield)
                                 :creation-date     (time/local-now)
-                                :next-player-index (atom 0)
+                                :next-player-index (atom (cycle (range (count players))))
                                 :players           players})
     game-id))
+
+(defn update-player-turn
+  "Sets the next player for a game"
+  [game]
+  (let [next-player-gen (:next-player-index game)]
+    (swap! next-player-gen #(rest %))))
 
 (defn update-battlefield
   "Updates the battlefield after a successful shot"
   [row col player game-id]
-  (let [game (:battlefield (@games game-id))]
-    (swap! game update-in [(battlefield/locate-cell row col (battlefield/length @game)) :shot-by] (fn [x] player ))))
+  (let [battlefield (:battlefield (@games game-id))]
+    (swap! battlefield update-in [(battlefield/locate-cell row col (battlefield/length @battlefield)) :shot-by] (fn [x] player ))))
 
 (defn is-game-over?
   "Checks whether of not there is an enemy left."
   [game]
   (let [ battlefield (lookup-battlefield game)]
-       (not (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))
+    (not (some #(= {:has-enemy? true :shot-by :none} %)  battlefield))))
+
+(defn get-next-player
+  "Returns the next waited player to play"
+  [game]
+  (let [index (first @(:next-player-index game))]
+    (:name (get (:players game) index))))
+
+(defn is-player-in-game?
+  "Checks whether or not the player is part of the given game"
+  [player game]
+  (->> (:players game)
+       (some #(= (:name %) player))))
+
+(defn is-player-turn?
+  "Checks whether or not it's the given player's turn"
+  [player game]
+  (->> (get-next-player game)
+       (= player)))
 
 (defn terminated-games
   "Returns all terminated games"
@@ -96,9 +120,10 @@
     :size        (battlefield/length battlefield)
     :live        (not (is-game-over? game))
     :players     (get-players game)
+    :next-player (get-next-player game)
     :battlefield (battlefield/describe-battlefield battlefield)}))
 
-;; Play function
+;; Play functions
 (defn display-battlefield
   [game-id]
   (->> (lookup-game game-id)
@@ -117,9 +142,28 @@
   (let [cell (battlefield/select-cell row col battlefield)]
     (and (:has-enemy? cell) (= :none (:shot-by cell)))))
 
-(defn attack
+(defn fire
   "A player attempt to shoot an enemy.
    If an enemy is shot the fun returns :success otherwise :failure"
   [row col player game]
   (let [battlefield (lookup-battlefield game)]
     (if (found-enemy? row col battlefield) :success :failure)))
+
+(defn play
+  "Runs the fire process involving the game management"
+  [row col player game-id]
+  (if-let [game (lookup-game game-id)]
+    (cond (is-game-over? game)                   {:error :game-over        :message "The game is over"}
+          (not (is-player-in-game? player game)) {:error :player-not-found :message (str "Player " player " not found for this game")}
+          (not (is-player-turn? player game))    {:error :wait-your-turm   :message (str "Player " player " not yet allowed to attack, other player should play")}
+          :else
+          (let [attack-result (fire row col player game)]
+            (update-player-turn game)
+            (if (= attack-result :success)
+              (do
+                (update-battlefield row col player game-id)
+                {:result  :success
+                 :message (str "You've sank battleship at row=" row " column=" col)})
+              {:result  :failure
+               :message (str "Your attack targeting ship at row=" row " column=" col " failed")})))
+    {:error :game-not-found :message (str "Game with id=" game-id " not found")}))

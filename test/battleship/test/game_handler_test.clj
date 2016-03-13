@@ -197,7 +197,7 @@
       (let [actual (found-enemy? 0 0 battlefield)]
         (is (= actual false))))))
 
-(deftest test-attack
+(deftest test-fire
   (let [game {:battlefield (atom [{:has-enemy? true  :shot-by "player1"}
                                   {:has-enemy? false :shot-by :none}
                                   {:has-enemy? true  :shot-by :none}
@@ -224,15 +224,15 @@
                                   {:has-enemy? false :shot-by :none}
                                   {:has-enemy? true  :shot-by "player1"}])}]
     (testing "nxn matrice: Fire on enemy located at row=0 col=0"
-      (let [actual (attack 0 0 "plx" game)]
+      (let [actual (fire 0 0 "plx" game)]
         (is (= actual :failure))))
 
     (testing "nxn matrice: Fire on enemy located at row=0 col=1"
-      (let [actual (attack 0 1 "plx" game)]
+      (let [actual (fire 0 1 "plx" game)]
         (is (= actual :failure))))
 
     (testing "nxn matrice: Fire on enemy located at row=0 col=2"
-      (let [actual (attack 0 2 "plx" game)]
+      (let [actual (fire 0 2 "plx" game)]
         (is (= actual :success))))))
 
 (deftest test-is-game-over
@@ -320,11 +320,13 @@
 
 (deftest test-describe-game
   (testing "The game is not over."
-    (let [actual (describe-game {:battlefield (atom [{:has-enemy? true  :shot-by "player1"}
-                                                     {:has-enemy? false :shot-by :none}
-                                                     {:has-enemy? true  :shot-by "player1"}
-                                                     {:has-enemy? true  :shot-by :none}])
-                                 :players     [{:name "P1"} {:name "P1"}]})]
+    (let [actual (describe-game {:battlefield       (atom [{:has-enemy? true  :shot-by "player1"}
+                                                           {:has-enemy? false :shot-by :none}
+                                                           {:has-enemy? true  :shot-by "player1"}
+                                                           {:has-enemy? true  :shot-by :none}])
+                                 :players           [{:name "P1"} {:name "P2"}]
+                                 :next-player-index (atom (->> (cycle (range 3))
+                                                               (rest)))})]
       (is (= actual {:size 2
                      :score {"player1" 2}
                      :live true
@@ -332,14 +334,16 @@
                                    {:row 0 :col 1 :shot-by :none}
                                    {:row 1 :col 0 :shot-by "player1"}
                                    {:row 1 :col 1 :shot-by :none}]
-                     :players     [{:name "P1"} {:name "P1"}]}))))
+                     :players     [{:name "P1"} {:name "P2"}]
+                     :next-player "P2"}))))
 
   (testing "The game is not over."
-    (let [actual (describe-game {:battlefield (atom [{:has-enemy? true  :shot-by :none}
-                                                     {:has-enemy? true  :shot-by :none}
-                                                     {:has-enemy? true  :shot-by :none}
-                                                     {:has-enemy? true  :shot-by :none}])
-                                 :players     [{:name "P1"} {:name "P1"}]})]
+    (let [actual (describe-game {:battlefield       (atom [{:has-enemy? true  :shot-by :none}
+                                                           {:has-enemy? true  :shot-by :none}
+                                                           {:has-enemy? true  :shot-by :none}
+                                                           {:has-enemy? true  :shot-by :none}])
+                                 :players           [{:name "P1"} {:name "P2"}]
+                                 :next-player-index (atom (cycle (range 3)))})]
       (is (= actual {:size 2
                      :score {}
                      :live true
@@ -347,14 +351,17 @@
                                    {:row 0 :col 1 :shot-by :none}
                                    {:row 1 :col 0 :shot-by :none}
                                    {:row 1 :col 1 :shot-by :none}]
-                     :players     [{:name "P1"} {:name "P1"}]}))))
+                     :players     [{:name "P1"} {:name "P2"}]
+                     :next-player "P1"}))))
 
   (testing "The game is over."
-    (let [actual (describe-game {:battlefield (atom [{:has-enemy? true  :shot-by "player1"}
-                                                     {:has-enemy? true  :shot-by "player-101"}
-                                                     {:has-enemy? true  :shot-by "player1"}
-                                                     {:has-enemy? true  :shot-by "player-X"}])
-                                 :players     [{:name "P1"} {:name "P1"}]})]
+    (let [actual (describe-game {:battlefield       (atom [{:has-enemy? true  :shot-by "player1"}
+                                                           {:has-enemy? true  :shot-by "player-101"}
+                                                           {:has-enemy? true  :shot-by "player1"}
+                                                           {:has-enemy? true  :shot-by "player-X"}])
+                                 :players           [{:name "P1"} {:name "P2"}]
+                                 :next-player-index (atom (->> (cycle (range 3))
+                                                                 (rest)))})]
       (is (= actual {:size 2
                      :score {"player1" 2 "player-101" 1 "player-X" 1}
                      :live false
@@ -362,4 +369,15 @@
                                    {:row 0 :col 1 :shot-by "player-101"}
                                    {:row 1 :col 0 :shot-by "player1"}
                                    {:row 1 :col 1 :shot-by "player-X"}]
-                     :players     [{:name "P1"} {:name "P1"}]})))))
+                     :players     [{:name "P1"} {:name "P2"}]
+                     :next-player "P2"})))))
+
+
+(deftest test-get-next-player
+  (testing "next player is the second player"
+    (let [actual (get-next-player {:players           [{:name "P1"}
+                                                       {:name "P2"}
+                                                       {:name "P3"}]
+                                   :next-player-index (atom (->> (cycle (range 3))
+                                                                 (rest)))})]
+      (is (= actual "P2")))))

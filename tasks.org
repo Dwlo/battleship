@@ -6,7 +6,9 @@
 - [X] Implement game description
 - [X] Implement server description
 - [X] Add players at the game creation time
-- [ ] Implement playing strategy (round robin)
+- [-] Implement playing strategy (round robin)
+  + [X] Wait next player plays
+  + [ ] Timer for each player
 - [ ] Update the README
 - [X] Rename game center to games handler
 - [X] Handle the case of new battlefield without enemies

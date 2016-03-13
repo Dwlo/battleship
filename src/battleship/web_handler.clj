@@ -1,12 +1,12 @@
 (ns battleship.web-handler
   "This package contains the REST API and the server instance of battleship game."
   (:require [battleship
-             [game-handler :as game-handler]
-             [view         :as view]]
+             [game-handler        :as game-handler]
+             [view                :as view]]
             [compojure
-             [core    :refer :all]
-             [handler :as    handler]
-             [route   :as    route]]
+             [core                :refer :all]
+             [handler             :as    handler]
+             [route               :as    route]]
             [ring.middleware.json :refer :all]
             [ring.util.response   :refer :all]))
 
@@ -39,13 +39,15 @@
 
   ;;  --- Attemps an attack by a given player on a given location.
   (PUT "/games/:game-id/players/:player/fire" {{row :row col :col player :player game-id :game-id} :params}
-       (if-let [game (game-handler/lookup-game game-id)]
-         (let [row' (read-string row) col' (read-string col) attack-result (game-handler/attack row' col' player game)]
-           (when (= attack-result :success)
-             (game-handler/update-battlefield row' col' player game-id))
-           (response {:shot-result attack-result}))
-         (not-found {:error (str "No game found with the given id: " game-id)})))
-
+       (let [result (game-handler/play (read-string row) (read-string col) player game-id)
+             msg    (:message result)
+             err    (:error result)]
+         (cond (= err :game-not-found) (not-found msg)
+               (not= err nil)          {:status 400
+                                        :body   msg}
+           :else
+           (response result))))
+;; (not-found {:error (str "No game found with the given id: " game-id)})
   ;; --- Describes game
   (GET "/games/:game-id/describe" [game-id]
        (if-let [game (game-handler/lookup-game game-id)]
