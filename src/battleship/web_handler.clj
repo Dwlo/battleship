@@ -11,16 +11,18 @@
             [ring.util.response   :refer :all]))
 
 (defroutes app-routes
-  ;;;;; Public APIs  ;;;;;
+  ;;++++++++++++++++++       Web site       ++++++++++++++++++;;
+  ;;==========================================================;;
   ;; --- The index page.
   (GET "/" [] (view/index-page))
 
-  ;;;;; Admin APIs  ;;;;;
+  ;;++++++++++++++++++ Administration APIs  ++++++++++++++++++;;
+  ;;==========================================================;;
   ;; --- Getting infos about all games.
   (GET "/game-center/status" [] (response (game-handler/describe-global-status (deref game-handler/games))))
 
-
-  ;;;;; Players APIs  ;;;;;
+  ;;++++++++++++++++++     Players APIs     ++++++++++++++++++;;
+  ;;==========================================================;;
   ;; --- Retrieves the battlefield for the given game id.
   (GET "/games/:game-id/battlefield" [game-id] (response (game-handler/display-battlefield game-id)))
 
@@ -47,7 +49,8 @@
          (response (game-handler/describe-game game))
          (not-found {:error (str "No game found with the given id: " game-id)})))
 
-  ;;;;; Others
+  ;;++++++++++++++++++        Others        ++++++++++++++++++;;
+  ;;==========================================================;;
   (route/resources "/")
   (route/not-found "Not Found"))
 
