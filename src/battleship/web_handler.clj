@@ -19,17 +19,10 @@
   ;; --- Getting infos about all games.
   (GET "/game-center/status" [] (response (game-handler/describe-global-status (deref game-handler/games))))
 
-  ;; --- Cleans up the finished games from the 'all games context'.
-  (DELETE "/admin/gc" [] (do (game-handler/clean-up) (response {:clean-up :done})))
-
 
   ;;;;; Players APIs  ;;;;;
   ;; --- Retrieves the battlefield for the given game id.
   (GET "/games/:game-id/battlefield" [game-id] (response (game-handler/display-battlefield game-id)))
-
-  ;; --- Retrieves the full battlefield data for the given game id.
-  ;; To be removed: only for debug purpose
-  (GET "/games/:game-id/show-enemies" [game-id] (response (game-handler/display-enemies game-id)))
 
   ;; --- Registers a new game to the all games context.
   (POST "/games" request
@@ -47,7 +40,7 @@
                                         :body   msg}
            :else
            (response result))))
-;; (not-found {:error (str "No game found with the given id: " game-id)})
+
   ;; --- Describes game
   (GET "/games/:game-id/describe" [game-id]
        (if-let [game (game-handler/lookup-game game-id)]
